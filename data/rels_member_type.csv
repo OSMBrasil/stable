@@ -1,0 +1,180 @@
+osm_type,member_type,n,n_perc,n_owners,own_perc
+r,,2209,88%,855,39%
+r,subarea,96,4%,42,44%
+r,subbasin,56,2%,23,41%
+r,part,37,1%,19,51%
+r,route,33,1%,13,39%
+r,platform,22,1%,12,55%
+r,outer,11,0%,8,73%
+r,apply_to,4,0%,4,100%
+r,forward,3,0%,3,100%
+r,generator,3,0%,3,100%
+r,inner,3,0%,3,100%
+r,outline,3,0%,3,100%
+r,route1,3,0%,3,100%
+r,route2,3,0%,3,100%
+r,backward,2,0%,2,100%
+r,label,2,0%,2,100%
+r,level_1,2,0%,2,100%
+r,riverbank,2,0%,2,100%
+r,stop,2,0%,2,100%
+r,land_area,1,0%,1,100%
+r,level_2,1,0%,1,100%
+r,main_stream,1,0%,1,100%
+r,member,1,0%,1,100%
+r,perimeter,1,0%,1,100%
+w,outer,518757,46%,85390,16%
+w,,337283,30%,7728,2%
+w,inner,83125,7%,29971,36%
+w,forward,73637,6%,1138,2%
+w,to,50441,4%,50398,100%
+w,from,49544,4%,49510,100%
+w,backward,7231,1%,646,9%
+w,main_stream,5210,0%,332,6%
+w,platform,3259,0%,934,29%
+w,part,2937,0%,1248,42%
+w,outline,1263,0%,1261,100%
+w,via,789,0%,695,88%
+w,link,635,0%,38,6%
+w,line,628,0%,270,43%
+w,street,601,0%,393,65%
+w,substation,414,0%,224,54%
+w,side_stream,279,0%,67,24%
+w,route,218,0%,17,8%
+w,house,207,0%,34,16%
+w,sub_station,95,0%,52,55%
+w,building,74,0%,20,27%
+w,foward,68,0%,3,4%
+w,buildingpart,66,0%,2,3%
+w,Rua dos Pioneiros,42,0%,1,2%
+w,perimeter,32,0%,30,94%
+w,platform_exit_only,25,0%,16,64%
+w,platform_entry_only,19,0%,16,84%
+w,generator,15,0%,13,87%
+w,way,12,0%,4,33%
+w,device,10,0%,5,50%
+w,plant,10,0%,10,100%
+w,parking,9,0%,7,78%
+w,member,7,0%,1,14%
+w,stop,7,0%,5,71%
+w,,6,0%,1,17%
+w,boundary,6,0%,4,67%
+w,label,6,0%,6,100%
+w,sport,6,0%,1,17%
+w,Inner,5,0%,1,20%
+w,"Jardim Fortaleza, Guarlhos - SP",5,0%,1,20%
+w,area,5,0%,3,60%
+w,<,4,0%,1,25%
+w,across,4,0%,2,50%
+w,both,4,0%,4,100%
+w,Bike Lane,3,0%,1,33%
+w,shell,3,0%,3,100%
+w,ways,3,0%,3,100%
+w,Avenue,2,0%,1,50%
+w,Edificio de Universidad,2,0%,1,50%
+w,Estrada do Poney Club,2,0%,1,50%
+w,Ponto de ônibus,2,0%,1,50%
+w,RJ-071,2,0%,1,50%
+w,through,2,0%,1,50%
+w,under,2,0%,1,50%
+w,wall,2,0%,1,50%
+w,Bellagio Residence,1,0%,1,100%
+w,Building,1,0%,1,100%
+w,Estrada dos Alvarenga,1,0%,1,100%
+w,Governo do Estado de São Paulo,1,0%,1,100%
+w,Ida,1,0%,1,100%
+w,Institute,1,0%,1,100%
+w,Instituto de Computação,1,0%,1,100%
+w,Mais linhas de onibus,1,0%,1,100%
+w,Pokemon Go,1,0%,1,100%
+w,Programa de Extensão,1,0%,1,100%
+w,Transporte público,1,0%,1,100%
+w,Volta,1,0%,1,100%
+w,buildings,1,0%,1,100%
+w,bus,1,0%,1,100%
+w,conexão,1,0%,1,100%
+w,edge,1,0%,1,100%
+w,force,1,0%,1,100%
+w,level_-?\d+,1,0%,1,100%
+w,ouline,1,0%,1,100%
+w,outlines,1,0%,1,100%
+w,path,1,0%,1,100%
+w,positive,1,0%,1,100%
+w,ridge,1,0%,1,100%
+w,shortcut,1,0%,1,100%
+w,sim,1,0%,1,100%
+w,stop:0,1,0%,1,100%
+w,yes,1,0%,1,100%
+n,via,49984,40%,49984,100%
+n,stop,38640,31%,4165,11%
+n,platform,11548,9%,2812,24%
+n,admin_centre,10517,8%,10504,100%
+n,label,6383,5%,6328,99%
+n,,4192,3%,1367,33%
+n,house,458,0%,326,71%
+n,from,404,0%,394,98%
+n,to,372,0%,368,99%
+n,device,356,0%,355,100%
+n,stop_exit_only,241,0%,122,51%
+n,stop_entry_only,160,0%,129,81%
+n,part,106,0%,3,3%
+n,sign,100,0%,88,88%
+n,intersection,89,0%,89,100%
+n,entrance,81,0%,43,53%
+n,foward,53,0%,3,6%
+n,survey_point,52,0%,1,2%
+n,outer,45,0%,19,42%
+n,platform_exit_only,41,0%,7,17%
+n,backward,38,0%,3,8%
+n,centre,36,0%,36,100%
+n,forward_stop,20,0%,6,30%
+n,bus_stop,17,0%,5,29%
+n,force,16,0%,14,88%
+n,forward,14,0%,7,50%
+n,subarea,12,0%,7,58%
+n,admin_center,11,0%,11,100%
+n,backward_stop,10,0%,2,20%
+n,front,9,0%,9,100%
+n,rear,9,0%,9,100%
+n,spring,8,0%,8,100%
+n,station,8,0%,5,63%
+n,generator,7,0%,5,71%
+n,member,6,0%,1,17%
+n,inner,5,0%,3,60%
+n,location_hint,5,0%,5,100%
+n,stop:2,5,0%,5,100%
+n,stop:3,5,0%,5,100%
+n,stop:4,5,0%,5,100%
+n,backward_stop_%n,4,0%,1,25%
+n,end,4,0%,4,100%
+n,stop:1,4,0%,4,100%
+n,platform_entry_only,3,0%,2,67%
+n,stop:5,3,0%,3,100%
+n,stop:6,3,0%,3,100%
+n,stop:7,3,0%,3,100%
+n,vending,3,0%,1,33%
+n,access,2,0%,1,50%
+n,start,2,0%,2,100%
+n,stop:8,2,0%,2,100%
+n,stop_position,2,0%,1,50%
+n,Agência de marketing Digital,1,0%,1,100%
+n,Distrito,1,0%,1,100%
+n,Esporte e Recreação,1,0%,1,100%
+n,Hostel,1,0%,1,100%
+n,Indústrias de calçado,1,0%,1,100%
+n,Intelbras,1,0%,1,100%
+n,Laboratório,1,0%,1,100%
+n,Linha 8 Seleta,1,0%,1,100%
+n,Own,1,0%,1,100%
+n,Papel,1,0%,1,100%
+n,Rota de Ônibus 31 - Centro x Vital Brasil,1,0%,1,100%
+n,address,1,0%,1,100%
+n,forward_stop_%n,1,0%,1,100%
+n,institution,1,0%,1,100%
+n,restaurant,1,0%,1,100%
+n,stop 1,1,0%,1,100%
+n,stop 2,1,0%,1,100%
+n,stop 3,1,0%,1,100%
+n,stop 4,1,0%,1,100%
+n,stop:9,1,0%,1,100%
+n,stop_point,1,0%,1,100%
