@@ -64,7 +64,6 @@ $f$ LANGUAGE SQL IMMUTABLE;
 
 ---- ---
 
-
 CREATE or replace FUNCTION stable.lexname_to_path(
   p_lexname text
 ) RETURNS text AS $f$
@@ -216,6 +215,24 @@ SELECT file_put_contents('/tmp/lixo.json', (
        || stable.rel_dup_properties(id,'r',members_md5_int,members) )
   FROM  planet_osm_rels where id=242467
 ) ); -- não usar COPY pois gera saida com `\n`
+
+-- Exemplo mais complexo: grava propriedades de todas as cidades:
+SELECT t1.name_path, t1.id,
+ file_put_contents('/tmp/final-'||t1.id||'.json', (
+  SELECT
+    trim((
+       jsonb_strip_nulls(stable.rel_properties(r1.id)
+       || COALESCE(stable.rel_dup_properties(r1.id,'r',r1.members_md5_int,r1.members),'{}'::jsonb) )
+    )::text)
+  FROM  planet_osm_rels r1 where r1.id=t1.id
+ ) ) -- /selct /file
+FROM (
+ SELECT *, stable.getcity_rels_id(name_path) id  from stable.city_test_names
+) t1, LATERAL (
+ SELECT * FROM planet_osm_rels r WHERE  r.id=t1.id
+) t2;
+
+
 */
 
 CREATE or replace FUNCTION stable.rel_properties(
@@ -310,7 +327,7 @@ CREATE or replace FUNCTION file_put_contents(
   p_msg text DEFAULT ' (file "%s" saved!) '
 ) RETURNS text AS $$
   o=open(args[0],"w")
-  o.write(args[1]) # no +"\n", no magic EOL
+  o.write(args[1])
   o.close()
   if args[2] and args[2].find('%s')>0 :
     return (args[2] % args[0])
