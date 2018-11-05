@@ -154,7 +154,7 @@ SET nodes_md5_int = ('x'||substr(md5(nodes::text),0,17))::bit(64)::bigint
 ALTER TABLE planet_osm_rels add column members_md5_int bigint;
 CREATE INDEX rels_members_md5_int ON planet_osm_rels(members_md5_int);
 UPDATE planet_osm_rels -- basta verificar ways, aí analisar com parts ou rels.
-SET members_md5_int = ('x'||stable.member_key(members,true,''))::bit(64)::bigint
+SET members_md5_int = ('x'||stable.member_md5key(members,true,''))::bit(64)::bigint
 ;  -- 151288
 
 /* CONFERINDO:
@@ -171,7 +171,7 @@ WHERE
     from planet_osm_rels group by 1 having count(*)>1)
   AND members_md5_int NOT IN (
     SELECT DISTINCT members_md5_int from (
-      select members_md5_int, stable.member_key(members) g
+      select members_md5_int, stable.member_md5key(members) g
       from planet_osm_rels group by 1,2 having count(*)>1
   ) t
 );
@@ -216,3 +216,27 @@ WHERE not(is_dup) AND osm_id>0 AND EXISTS (
     SELECT nodes_md5_int FROM planet_osm_ways WHERE id=t.osm_id
   )
 ); -- 940 in 3.796.335 linhas , ~10min
+
+
+------
+
+
+CREATE or replace FUNCTION stable.save_city_test_names(
+  p_root text DEFAULT '/tmp/'
+) RETURNS table(city_name text, osm_id bigint, filename text) AS $f$
+  SELECT t1.name_path, t1.id,
+   file_put_contents(p_root||replace(t1.name_path,'/','-')||'.json', jsonb_pretty((
+    SELECT
+       ST_AsGeoJSONb( (SELECT way FROM planet_osm_polygon WHERE osm_id=-r1.id), 6, 1, 'R'||r1.id::text,
+         jsonb_strip_nulls(stable.rel_properties(r1.id)
+         || COALESCE(stable.rel_dup_properties(r1.id,'r',r1.members_md5_int,r1.members),'{}'::jsonb) )
+      )
+    FROM  planet_osm_rels r1 where r1.id=t1.id
+   )) ) -- /selct /pretty /file
+  FROM (
+   SELECT *, stable.getcity_rels_id(name_path) id  from stable.city_test_names
+  ) t1, LATERAL (
+   SELECT * FROM planet_osm_rels r WHERE  r.id=t1.id
+  ) t2;
+$f$ LANGUAGE SQL IMMUTABLE;
+-- select * from  stable.save_city_test_names();

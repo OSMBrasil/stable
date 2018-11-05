@@ -159,7 +159,7 @@ $f$ LANGUAGE SQL IMMUTABLE;
 DROP TABLE IF EXISTS stable.city_test_names;
 CREATE TABLE stable.city_test_names AS
   SELECT unnest(
-    '{PR/Curitiba,SC/JaraguaSul,SP/MonteiroLobato,MG/SantaCruzMinas,SP/SaoPaulo,PA/Altamira,RJ/AngraReis}'::text[]
+    '{PR/Curitiba,PR/MarechalCandidoRondon,SC/JaraguaSul,SP/MonteiroLobato,MG/SantaCruzMinas,SP/SaoPaulo,PA/Altamira,RJ/AngraReis}'::text[]
   ) name_path
 ;
 
