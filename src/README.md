@@ -8,7 +8,9 @@ Os scripts bash [prepare01-1.sh](prepare01-1.sh) e [prepare01-2.sh](prepare01-2.
 O software SQL necessário é instalado a partir de  [prepare02-lib.sql](prepare02-lib.sql) e	 [prepare03-loadDatasets.sql](prepare03-loadDatasets.sql).
 
 ## Tutorial passo-a-passo
-Passo a passo para fazer carga ou manutenção do *git OSM-Stable-BR*. Ver também [manuais de apoio na seção de  Referências](#Referências). 
+Passo a passo para fazer carga ou manutenção do *git OSM-Stable-BR*. 
+Ver também [manuais de apoio na seção de  Referências](#Referências). Para outros elementos passo-a-passo ou exemplos, 
+ver arquivos de HowTo: [HowTo cityGeoJSON](HowTo-cityGeoJSON.md) descreve como extrair o GeoJSON de um município.
 
 ### Preâmbulos
 A carga inicial do arquivo `brazil-latest.osm` desejado pode ser reproduzida utilizado os metadados e instruções 
