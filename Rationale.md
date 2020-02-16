@@ -100,4 +100,24 @@ Portanto os parâmetros escolhidos (7 e 0) são adequados para o presente e o fu
 
 ... propriedades eleitas ...
 
+------
 
+## Representação interna na base de dados
+Apesar do repositório *stable* ser totalmente independente da tecnologia que se usa para processar os dados, é interessante ressaltar algumas decisões que facilitam o processo de construção e validação dos dados.
+
+A seguir algumas decisões de projeto, baseadas na representação PostgreSQL do OSM, após carga Osm2pgsql: recomenda-se usar *tags* como JSONb ao invés de hStore.
+
+### Uso do modelo Osm2pgsql
+
+Parece ser o software de "conversão de Planet" mais popular e com uma comunidade mais ativa. Em particular, devido à sua relação íntima com o [Nominatim](https://nominatim.openstreetmap.org) e outros projetos que estarão também relacionados ao *stable*. 
+
+### JSONb no Osm2pgsql
+Entre as configurações e adaptações do `osm2pgsql`, as principais opções de configuração são já expressas no script [`src/prepare01-1.sh`](src/prepare01-1.sh). Com relação à decisão pelo formato JSONb ao invés do HStore, 
+
+* No github estamos usando pull request com [syncing-a-fork](https://help.github.com/articles/syncing-a-fork)...
+* [Performance](http://mateuszmarchel.com/blog/2016/06/29/jsonb-vs-hstore-performance-battle/): *"If you already have hstore field in your table, there is no reason why you should change it to jsonb for performance gain (especially if it's indexed with GIN)"*, mas no osm2pgsql o default é sem GIN, onde perde-se performance e a recomendação final é *"But if you are thinking what type you should choose for your next project - go with jsonb"*
+
+* Recomendação em comunidades de experts: 
+   - C. Kerstiens. *"In most cases JSONB is likely what you want when looking for a NoSQL, schema-less, datatype"*; <br/>*"JSONB - In most cases"*; <br/>*"hstore - Can work fine for text based key-value looks, but in general JSONB can still work great here"*, [citusdata.com](https://www.citusdata.com/blog/2016/07/14/choosing-nosql-hstore-json-jsonb/) (2016).<br/>
+   - C. Ringer. "it’s probably worth replacing hstore use with jsonb in all new applications" [blog.2ndquadrant](https://blog.2ndquadrant.com/postgresql-anti-patterns-unnecessary-jsonhstore-dynamic-columns/) (2015); "if you're choosing a dynamic structure you should choose jsonb over hstore",  [dba.stackexchange](https://dba.stackexchange.com/questions/115825/jsonb-with-indexing-vs-hstore) (2015).
+   - comunidade osm2pgsql:  [issues/692](https://github.com/openstreetmap/osm2pgsql/issues/692) (em aberto), [issues/533](https://github.com/openstreetmap/osm2pgsql/issues/533) (possível reabrir se forem apresentados exemplos concretos).
