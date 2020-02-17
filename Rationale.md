@@ -24,22 +24,23 @@ O formato GeoJSON adotado não corresponde apeas a um comando PostGIS, pois sati
 
 4. Incluir no GeoJSON, `properties`, com base em **metadados** padronizados e estáveis, com origem nas tags OSM e/ou propriedades Wikidata, e em conformidade com a [justificativa acima](#fonte-de-metadados-do-município).
 
-### Requisito-2 do GeoJSON do município
+### Requisitos 1 e 2 do GeoJSON do município
 
-No OSM  um município do Brasil,  dentre os ~5,5 mil previstos, além de ter a sua geometria estar expressa por polígono simples de relation, 
-requer minimamente as tags `boundary=administrative` e valores consistentes para Wikidata e IBGE 
+No OSM  um município do Brasil,  dentre os ~5,5 mil previstos, além de ter a sua geometria estar expressa por polígono de relation
+(sem pontos ou linhas isoladas), requer minimamente as tags `boundary=administrative` e valores consistentes para Wikidata e IBGE
 Bom lembrar também que no Brasil todos os seus são _admin_level:8_.
 ```sql
-CREATE VIEW osmc.vwaudit01props_br_city AS 
+CREATE VIEW osmc.vwaudit01props_br_city AS
  SELECT -p.osm_id,                            -- precisa ser positivo
-        ST_GeometryType(p.way) as geom_type,  -- precisa ser ST_Polygon
+        ST_GeometryType(p.way) as geom_type,  -- nao pode ser Collection (nao pode conter pontos isolados da Relation de origem)
         ST_SRID(p.way) as srid,               -- precisa ser 4326
-        c.wikidata_id, c.ibge_id              -- não podem ser null 
- FROM planet_osm_polygon p INNER JOIN vw01_brcodes_city c -- fornece caches de ID string por JOIN com brcodes_state.
-   ON  p.tags->>'IBGE:GEOCODIGO' = c.kxstr_ibge_id AND p.tags->>'wikidata' = c.kxstr_wikidata_id
+        c.wikidata_id, c.ibge_id              -- não podem ser null
+ FROM planet_osm_polygon p LEFT JOIN vw_brcodes_city c -- fornece caches de ID string por JOIN com brcodes_state.
+   ON  (p.tags->>'IBGE:GEOCODIGO')::int = c.ibge_id -- AND p.tags?'wikidata'
  WHERE p.tags->>'boundary'='administrative' AND p.tags->>'admin_level'='8'
  ORDER BY 1;
 ```
+Se o projeto [Semantic-bridge](https://github.com/OSMBrasil/semantic-bridge) estiver ativo, pode-se exigir a tag Wikidata.
 Independente do resultado da auditoria, para não haver risco de ambiguidade nas consultas, é preciso também garantir a não-duplicidade por
 
 ```sql

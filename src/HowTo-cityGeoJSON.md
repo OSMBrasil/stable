@@ -1,10 +1,18 @@
 Todos os municípios podem ser exportados a partir da carga do "OSM-Planet", usando o aplicativo de terminal `osm2pgsql`, 
-conforme descrito no [README](README.md). A metodologia de exportação segue as justificativas apresentadas no [`Rationale.md`](../Rationale.md).
+conforme descrito no [README](README.md). 
+A metodologia de exportação segue as justificativas apresentadas no [`Rationale.md`](../Rationale.md).
 
-A seguir exemplos de localização e verificação, garantindo a qualidade da extração de um município, para alimentar o presente *git* com seu GeoJSON.
+A seguir exemplos de localização e verificação, garantindo a qualidade da extração de um município,
+para alimentar o presente *git* com seu GeoJSON.
 
 ## Exemplo de RR-BoaVista no stable 2018 JSON
-Pelo [datasets.ok.org.br/city-codes](http://datasets.ok.org.br/city-codes) temos confirmação de que o código IBGE é 1400100 e a entrada Wikidata é [Q181056](http://wikidata.org/entity/Q181056#P402), onde fica destacado que o [OSM-relation-ID é 326286](https://www.openstreetmap.org/relation/326286). Ainda assim, convém no SQL conferir se não existem outros polígonos de _boundary:administrative_ com mesmo código IBGE. Se fossemos recuperar direto pelo OSM-relation-ID da Wikidata, convém lembrar que é negativo na representação `osm_id`. Outro problema é que queremos o "polígono puro", mas a relation inclui o ponto do _admin_centre_ (falta conferir se o `osm2pgsql` separou as duas coisas (geometria pura de ST_Polygon).
+Pelo [datasets.ok.org.br/city-codes](http://datasets.ok.org.br/city-codes) temos confirmação de que o identificador numérico IBGE é 1400100
+e a entrada Wikidata é [Q181056](http://wikidata.org/entity/Q181056#P402), onde fica destacado que 
+o [OSM-relation-ID é 326286](https://www.openstreetmap.org/relation/326286).
+Ainda assim, convém no SQL conferir se não existem outros polígonos de _boundary:administrative_
+com mesmo código IBGE. Na consulta SQL também vale destacar elementos de confusão:
+* o identificador  `osm_id` de *relation* é negativo, para destacar de polígono originado por *way* (na Wikidata é positivo).
+* o polígono (eventualmente multipolígono) não contem objetos estranhos, apesar da relation OSM e sua visualização no `http://OSM.org` apresentarem um ponto central na geometria (admin_centre).<br/> O conversor `osm2pgsql` garante que não haja mistura (não gera geometria tipo Collection).
 
 ```sql
  SELECT osm_id, ST_GeometryType(way) as geom_type, tags 
@@ -12,7 +20,7 @@ Pelo [datasets.ok.org.br/city-codes](http://datasets.ok.org.br/city-codes) temos
  WHERE tags->>'boundary'='administrative' and tags->>'IBGE:GEOCODIGO'='1400100';
 ```
 
-A listagem confirma apenas um item e com o perfil nas tags e na identificação (`osm_id = -326286`) conforme esperado.
+O resultado confirma que não há duplicação, há apenas um item e com o perfil nas tags e na identificação (`osm_id = -326286`) conforme esperado.
 
 ## Exemplo de RR-BoaVista no stable 2020 hstore
 Para o caso de não se ter adotado a conversão (recomendada) de HStore para JSONb, e aproveitando dados de 2020 para comparar com 2018.

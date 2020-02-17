@@ -220,14 +220,13 @@ WHERE not(is_dup) AND osm_id>0 AND EXISTS (
 
 ------
 
-
 CREATE or replace FUNCTION stable.save_city_test_names(
   p_root text DEFAULT '/tmp/'
 ) RETURNS table(city_name text, osm_id bigint, filename text) AS $f$
   SELECT t1.name_path, t1.id,
    file_put_contents(p_root||replace(t1.name_path,'/','-')||'.json', jsonb_pretty((
-    SELECT
-       ST_AsGeoJSONb( (SELECT way FROM planet_osm_polygon WHERE osm_id=-r1.id), 6, 1, 'R'||r1.id::text,
+    SELECT   -- conferir se muda digitos de 6 para 7
+       ST_AsGeoJSONb( (SELECT ST_SimplifyPreserveTopology(way,0) FROM planet_osm_polygon WHERE osm_id=-r1.id), 6, 1, 'R'||r1.id::text,
          jsonb_strip_nulls(stable.rel_properties(r1.id)
          || COALESCE(stable.rel_dup_properties(r1.id,'r',r1.members_md5_int,r1.members),'{}'::jsonb) )
       )
@@ -239,4 +238,3 @@ CREATE or replace FUNCTION stable.save_city_test_names(
    SELECT * FROM planet_osm_rels r WHERE  r.id=t1.id
   ) t2;
 $f$ LANGUAGE SQL IMMUTABLE;
--- select * from  stable.save_city_test_names();
