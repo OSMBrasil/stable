@@ -8,4 +8,4 @@ Para auditoria ou reprodução passo-a-passo do processamento em base de dados S
 ver pasta [**src**](src/README.md#software-de-gestão-do-repositório-stable-br). Para justificativas de decisões de projeto, 
 ver [Rationale.md](docs/Rationale.md).
 
-Para verificar um exemplo de dados estáveis, ver por exemplo [PR-Curitiba](PR-Curitiba).
+Para verificar um exemplo de dados estáveis, ver por exemplo [data/PR/Curitiba](data/PR/Curitiba).

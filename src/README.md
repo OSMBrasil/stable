@@ -6,16 +6,14 @@ tendo como principais na sua infraestrutura PostgreSQL, PostGIS, Osm2pgsql ([ref
 Para usar todos os scrits desta pasta, sugere-se iniciar pelo *git clone* do repositório.
 Os scripts bash [prepare01-1.sh](prepare01-1.sh) e [prepare01-2.sh](prepare01-2.sh) devem rodar em sequência.
 
-HowTo-cityGeoJSON.md  prepare01-1.sh  prepare02-1-libPub.sql  prepare02-3-lib.sql                    prepare03-loadDatasetsOnce.sql
-README.md             prepare01-2.sh  prepare02-2-danger.sql  prepare02-lib-StableFuncsOriginal.sql  prepare04-danger.sql
-
 O software SQL necessário é instalado a partir de  [prepare02-1-libPub.sql](prepare02-1-libPub.sql), 
 tomandose o cuidado de não rodar mais do que uma vez arquivos sufixo "danger" ou "Once", `prepare*-danger.sql`.
 
 ## Tutorial passo-a-passo
 Passo a passo para fazer carga ou manutenção do *git OSM-Stable-BR*. 
-Ver também [manuais de apoio na seção de  Referências](#Referências). Para outros elementos passo-a-passo ou exemplos, 
-ver arquivos de HowTo: [HowTo cityGeoJSON](HowTo-cityGeoJSON.md) descreve como extrair o GeoJSON de um município.
+Ver também [manuais de apoio na seção de  Referências](#Referências), e índice dos [docs](../docs/README.md).
+Para outros elementos passo-a-passo ou exemplos, 
+ver documentação de HowTo: [docs/HowTo cityGeoJSON](../docs/HowTo-cityGeoJSON.md) descreve como extrair o GeoJSON de um município.
 
 ### Preâmbulos
 A carga inicial do arquivo `brazil-latest.osm` desejado pode ser reproduzida utilizado os metadados e instruções 
