@@ -26,14 +26,7 @@ INSERT INTO stable.element_exists(is_node,osm_id)
   SELECT true,id FROM planet_osm_nodes;
 */
 
-CREATE TABLE stable.member_of(
-  osm_owner bigint NOT NULL, -- osm_id of a relations
-  osm_type char(1) NOT NULL, -- from split
-  osm_id bigint NOT NULL, -- from split
-  member_type text,
-  UNIQUE(osm_owner, osm_type, osm_id)
-);
-CREATE INDEX stb_member_idx ON stable.member_of(osm_type, osm_id);
+
 
 CREATE or replace FUNCTION stable.members_pack(
   p_owner_id bigint -- osm_id of a relation
@@ -72,10 +65,6 @@ CREATE or replace FUNCTION stable.lexname_to_path(
 $f$ LANGUAGE SQL IMMUTABLE;
 
 
-CREATE or replace FUNCTION stable.osm_to_jsonb_remove() RETURNS text[] AS $f$
-   SELECT array['osm_uid','osm_user','osm_version','osm_changeset','osm_timestamp'];
-$f$ LANGUAGE SQL IMMUTABLE;
-
 CREATE or replace FUNCTION stable.osm_to_jsonb_remove_prefix(
   jsonb,text default 'name:'
 ) RETURNS text[] AS $f$
@@ -99,32 +88,7 @@ CREATE or replace FUNCTION stable.tags_split_prefix(
   ))
 $f$ LANGUAGE SQL IMMUTABLE;
 
-CREATE or replace FUNCTION stable.osm_to_jsonb(text[]) RETURNS JSONb AS $f$
-   SELECT jsonb_object($1) - stable.osm_to_jsonb_remove()
-$f$ LANGUAGE SQL IMMUTABLE;
 
-CREATE or replace FUNCTION stable.osm_to_jsonb(hstore) RETURNS JSONb AS $f$
-   SELECT hstore_to_jsonb_loose($1) - stable.osm_to_jsonb_remove()
-$f$ LANGUAGE SQL IMMUTABLE;
-
-CREATE or replace FUNCTION stable.member_md5key(
-  p_members jsonb, -- input from planet_osm_rels
-  p_no_rel boolean DEFAULT false, -- exclude rel-members
-  p_w_char char DEFAULT 'w' -- or '' for hexadecimal output.
-) RETURNS text AS $f$
-  SELECT p_w_char || COALESCE($1->>'w_md5','') || CASE
-    WHEN p_no_rel THEN ''
-    ELSE 'r' || COALESCE($1->>'r_md5','')
-  END
-$f$ LANGUAGE SQL IMMUTABLE;
-
-CREATE or replace FUNCTION stable.member_md5key(
-  p_rel_id bigint,
-  p_no_rel boolean DEFAULT false -- exclude rel-members
-) RETURNS text AS $f$
-  SELECT stable.member_md5key(members,p_no_rel)
-  FROM planet_osm_rels WHERE id=p_rel_id
-$f$ LANGUAGE SQL IMMUTABLE;
 /*
 select count(*) from (select stable.member_md5key(members,true) g, count(*) from planet_osm_rels group by 1 having count(*)>1) t;
 -- =  4761
@@ -156,7 +120,7 @@ $f$ LANGUAGE SQL IMMUTABLE;
 
 ---
 
-DROP TABLE IF EXISTS stable.city_test_names;
+DROP TABLE IF EXISTS stable.city_test_names CASCADE;
 CREATE TABLE stable.city_test_names AS
   SELECT unnest(
     '{PR/Curitiba,PR/MarechalCandidoRondon,SC/JaraguaSul,SP/MonteiroLobato,MG/SantaCruzMinas,SP/SaoPaulo,PA/Altamira,RJ/AngraReis}'::text[]
@@ -164,6 +128,13 @@ CREATE TABLE stable.city_test_names AS
 ;
 
 -----
+
+CREATE or replace FUNCTION stable.rel_properties(p_osm_id bigint) RETURNS jsonb AS $f$
+  SELECT tags || jsonb_build_object('members',members)
+  FROM planet_osm_rels r
+  WHERE id = abs(p_osm_id)
+$f$ LANGUAGE sql IMMUTABLE;
+
 
 CREATE or replace FUNCTION stable.rel_dup_properties(
   p_osm_id bigint,
@@ -244,20 +215,19 @@ CREATE or replace FUNCTION stable.rel_properties(
   WHERE id = abs(p_osm_id)
 $f$ LANGUAGE SQL IMMUTABLE;
 
+
 CREATE or replace FUNCTION stable.way_properties(
-  p_osm_id bigint
-) RETURNS JSONb AS $f$
+   p_osm_id bigint
+) RETURNS jsonb  AS $f$
   SELECT tags || jsonb_build_object(
     'nodes',nodes,
     'nodes_md5',LPAD(to_hex(nodes_md5_int),16,'0')
-  ) || COALESCE(
-    select from rels!
-    stable.rel_dup_properties(id,'w',nodes_md5_int,nodes),
-    '{}'::jsonb
-  )
+  )  --  || COALESCE(
+     --     select from rels!  stable.rel_dup_properties(id,'w',nodes_md5_int,nodes) limit 1
+     --     ,'{}'::jsonb )
   FROM planet_osm_ways r
   WHERE id = p_osm_id
-$f$ LANGUAGE SQL IMMUTABLE;
+$f$ LANGUAGE sql IMMUTABLE;
 
 CREATE or replace FUNCTION stable.element_properties(
   p_osm_id bigint,
@@ -274,7 +244,7 @@ $wrap$ LANGUAGE SQL IMMUTABLE;
  * Use ST_AsGeoJSONb( geom, 6, 1, osm_id::text, stable.element_properties(osm_id) - 'name:' ).
  */
 CREATE or replace FUNCTION ST_AsGeoJSONb( -- ST_AsGeoJSON_complete
-  st_asgeojsonb(geometry, integer, integer, bigint, jsonb
+  -- st_asgeojsonb(geometry, integer, integer, bigint, jsonb
   p_geom geometry,
   p_decimals int default 6,
   p_options int default 1,  -- 1=better (implicit WGS84) tham 5 (explicit)

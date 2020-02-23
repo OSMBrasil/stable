@@ -12,7 +12,8 @@ wget -O /tmp/br_city_codes.csv   -c https://raw.githubusercontent.com/datasets-b
 wget -O /tmp/br-region-codes.csv -c https://raw.githubusercontent.com/datasets-br/state-codes/master/data/br-region-codes.csv
 wget -O /tmp/br-state-codes.csv  -c https://raw.githubusercontent.com/datasets-br/state-codes/master/data/br-state-codes.csv
 
-psql postgres://postgres:myPass@localhost/osm_stable_br < ./prepare02-lib.sql
+psql postgres://postgres:myPass@localhost/osm_stable_br < prepare02-1-libPub.sql
+psql postgres://postgres:myPass@localhost/osm_stable_br < prepare02-2-lib.sql
 
 echo ' -- Para o próximo passo melhor rodar em BAT (com & no final), vai demorar... copie e cole:'
 

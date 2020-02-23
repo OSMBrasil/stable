@@ -1,35 +1,8 @@
 
-ALTER TABLE planet_osm_rels alter column members
-  type jsonb USING  jsonb_object(members)
-; -- fazer o com update até estar seguro. Depois trocar por stable.osmmembers_pack(jsonb_object(members));
 UPDATE planet_osm_rels
 SET members=COALESCE(stable.members_pack(id), members);
 
--- demora 15 min:
-ALTER TABLE planet_osm_line alter column tags type jsonb USING stable.osm_to_jsonb(tags);
-ALTER TABLE planet_osm_ways alter column tags type jsonb
-      USING jsonb_strip_nulls_v2(stable.osm_to_jsonb(tags)); -- ~10 min
-
--- mais rapidos:
-ALTER TABLE planet_osm_polygon alter column tags type jsonb USING stable.osm_to_jsonb(tags);
-ALTER TABLE planet_osm_rels alter column tags type jsonb USING stable.osm_to_jsonb(tags);
-
-
--- Opcional:
-/* deu pau, anulando 'name:' ... revisar depois quando for usar.
-UPDATE planet_osm_polygon -- ~10 minutos. 4.396.944 linhas.
- SET tags = stable.tags_split_prefix(jsonb_strip_nulls_v2(tags));
-UPDATE planet_osm_line   --  ~9 minutos. 3.869.230 linhas
- SET tags = stable.tags_split_prefix(jsonb_strip_nulls_v2(tags));
-UPDATE planet_osm_rels   --  ~1 minuto. 151.288 linhas
- SET tags = stable.tags_split_prefix(jsonb_strip_nulls_v2(tags));
-*/
-UPDATE planet_osm_polygon
- SET tags = jsonb_strip_nulls_v2(tags);
-UPDATE planet_osm_line
- SET tags = jsonb_strip_nulls_v2(tags);
-UPDATE planet_osm_rels
- SET tags = jsonb_strip_nulls_v2(tags);
+----
 
 CREATE or replace FUNCTION stable.getcity_rels_id(
   p_cod_ibge text  -- código IBGE do município, wikidata-id, lex-name ou path-name
@@ -59,7 +32,7 @@ CREATE or replace FUNCTION stable.getcity_rels_id(
    SELECT stable.getcity_rels_id($1::text,$2)
 $wrap$ LANGUAGE SQL IMMUTABLE;
 
-/*- -
+/*- - LIXO
  SELECT ibge_id, stable.getcity_rels_id(ibge_id) osm_id FROM brcodes_city;
 
  select stable.getcity_rels_id('4304408');
@@ -87,7 +60,6 @@ CREATE or replace FUNCTION stable.getcity_line_geom(
  FROM planet_osm_line
  WHERE -osm_id = stable.getcity_rels_id(p_cod_ibge,$2)
 $f$ LANGUAGE SQL IMMUTABLE;
-
 
 
 --------
