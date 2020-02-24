@@ -99,11 +99,11 @@ Portanto os parâmetros escolhidos (7 e 0) são adequados para o presente e o fu
 
 ### Requisito-4 do GeoJSON do município
 
-... propriedades eleitas ...
+... propriedades eleitas ... ver Conventions.md
 
-------
 
 ## Representação interna na base de dados
+
 Apesar do repositório *stable* ser totalmente independente da tecnologia que se usa para processar os dados, é interessante ressaltar algumas decisões que facilitam o processo de construção e validação dos dados.
 
 A seguir algumas decisões de projeto, baseadas na representação PostgreSQL do OSM, após carga Osm2pgsql: recomenda-se usar *tags* como JSONb ao invés de hStore.
@@ -122,3 +122,34 @@ Entre as configurações e adaptações do `osm2pgsql`, as principais opções d
    - C. Kerstiens. *"In most cases JSONB is likely what you want when looking for a NoSQL, schema-less, datatype"*; <br/>*"JSONB - In most cases"*; <br/>*"hstore - Can work fine for text based key-value looks, but in general JSONB can still work great here"*, [citusdata.com](https://www.citusdata.com/blog/2016/07/14/choosing-nosql-hstore-json-jsonb/) (2016).<br/>
    - C. Ringer. "it’s probably worth replacing hstore use with jsonb in all new applications" [blog.2ndquadrant](https://blog.2ndquadrant.com/postgresql-anti-patterns-unnecessary-jsonhstore-dynamic-columns/) (2015); "if you're choosing a dynamic structure you should choose jsonb over hstore",  [dba.stackexchange](https://dba.stackexchange.com/questions/115825/jsonb-with-indexing-vs-hstore) (2015).
    - comunidade osm2pgsql:  [issues/692](https://github.com/openstreetmap/osm2pgsql/issues/692) (em aberto), [issues/533](https://github.com/openstreetmap/osm2pgsql/issues/533) (possível reabrir se forem apresentados exemplos concretos).
+
+## Municípios do projeto-piloto 
+
+Municípios para tutoriais, testes simplificados, e projetos-piloto.
+
+A proposta do *Projeto OSM Stable BR* é ambiciosa, afinal são ~5570 municípios e armazenaríamos todos em formarmatos aberto (CSV e GeoJSON) no git. Cada município representa um coletivo de [curadores dos dados](https://en.wikipedia.org/wiki/Data_curation), que faria minimamente a seleção de dados relevante e controle de qualidade.
+
+Sendo tão abrangente, são necessários testes sobre amostragens representativas do todo. Amostragem de extremos em termos de área territorial, de densidade populacional, etc., assim como "exemplos de referência" para **tutoriais** e **projetos piloto** (futuras melhoras ou ampliações de escopo), constituindo minimamente e simulando a realidade do trabalho de uma curadoria.  
+
+### Exemplos de referência
+Foram eleitos, principalmente por terem potencias curadores já contatados, os seguintes municípios, a partir dos quais ficariam exemplificados por completo os vários aspectos do repositório:
+
+* [**Boa Vista**](../data/RR/BoaVista/municipio.geojson) (IBGE ??).
+
+* [**Curitiba**](../data/PR/Curitiba/municipio.geojson) (IBGE 4106902);
+
+* [**Jaraguá do Sul**](../data/SC/JaraguaSul/municipio.geojson) (IBGE 4208906);
+
+* [**Monteiro Lobato**](../data/SP/MonteiroLobato/municipio.geojson) (IBGE 3531704).
+
+### Casos extremos
+Com amostragem apenas parcial para testar e/ou exemplificar usos específicos do repositório, sem compromisso com completeza:
+
+* **Altamira** (IBGE 1500602), maior área (~159530 km2);
+
+* **Angra dos Reis** (IBGE ??), complexidade poligonal;
+
+* **Santa Cruz de Minas** (IBGE 3157336), menor área (~4 km2);
+
+* **São Paulo** (IBGE 3550308), maior densidade populacional.
+ 
