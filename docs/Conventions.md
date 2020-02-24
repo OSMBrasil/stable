@@ -81,3 +81,57 @@ Inicialmente, devido à demanda para prefeituras e aplicações de roteamento, a
 * pontos de endereçamento (entrada principa do lote ou portão de entidade registrada na Wikidata - parques, hospitais, etc.).
  
 Exemplo em planilha amigável com [alguns descritores de ponto de Curitiba](https://docs.google.com/spreadsheets/d/1yKC7ZwS8kU_aHQ1raOau1x3TkmmE074G0Wu7z8XnwzQ/edit#gid=1454207711)
+
+## Elementos do GeoJSON de município
+
+O município é um [sh:GeoShape](https://schema.org/GeoShape) expresso em formato [GeoJSON](https://geojson.org), minimamente contendo os seguintes elementos JSON:
+
+Chave     | Valor
+----------|---------
+**`id`**          | identificador ([sh:identifier](https://schema.org/identifier)) alfanumérico, letra representando o OSM-type (W=Way, R=Relation).
+**`bbox`**          | array com coordenadas da diagonal do retângulo envolvente, **BBOX padrão do GeoJSON**, válido como [sh:box](https://schema.org/box). Canto de baixo depois canto de cima, ambos Lng-Lat.
+**`type`**          | Typo de geometria (line, polygon, collection, etc.).
+**`properties`**          | objeto JSON com metadados do município.
+**`coordinates`** | array de arrays, contendo um [sh:polygon](https://schema.org/polygon).
+
+Os valores de primeiro nível válidos como `properties` do município são:
+
+Chave     | Significado ou valor esperado
+----------|--------------
+**`name`**          | Nome oficial do município, [sh:name](https://schema.org/name).
+**`type`**          | Valor constante, definindo [osm:tag:type=boundary](https://wiki.openstreetmap.org/wiki/Tag:type=boundary).
+**`source`** | [osm:key:source](https://wiki.openstreetmap.org/wiki/Key:source), indicando o autor do dado (em geral IBGE).
+**`boundary`** | Valor constante, definindo [osm:tag:boundary=administrative](https://wiki.openstreetmap.org/wiki/Tag:boundary=administrative).
+**`wikidata`** | [osm:key:wikidata](https://wiki.openstreetmap.org/wiki/Key:wikidata), contendo identificador Wikidata.
+**`wikipedia`** | [osm:key:wikipedia](https://wiki.openstreetmap.org/wiki/Key:wikipedia), contendo rótulo do município na Wikipedia da língua portugesa, em geral `pt:Nome do Município`.
+**`admin_level`** | [osm:key:admin_level](https://wiki.openstreetmap.org/wiki/Key:admin_level) contendo sempre o valor "8", exceto para Brasília.
+**`IBGE:GEOCODIGO`** | [osm:key:IBGE:GEOCODIGO](https://wiki.openstreetmap.org/wiki/Pt:Key:IBGE:GEOCODIGO) contendo o número do município no padrão IBGE.
+**`members`** | objeto JSON definindo, através de arrays, os *identificadores OSM* dos componentes (*map features* Node, Way ou Relation) que se juntaram para formar a geometria.
+
+Exemplo de `members`: 
+```json
+        "members": {
+            "n": {
+                "admin_centre": [
+                    415523067
+                ]
+            },
+            "w": {
+                "outer": [
+                    43958163,
+                    220383175,
+                    242892566,
+                    372374865,
+                    372374871,
+                    372374880,
+                    372374883,
+                    372374884
+                ]
+            }
+        }
+```
+
+Na representação interna do banco de dados pode ainda conter, como *cache* para otimizar velocidade na auditoria, 
+as chaves `n_md5` e `w_md5` para controle de casos duplicados.
+
+Ver [exemplo completo de Santa Cruz de Minas](https://raw.githubusercontent.com/OSMBrasil/stable/master/data/MG/SantaCruzMinas/municipio.geojson).
