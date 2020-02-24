@@ -1,4 +1,3 @@
-xcvvxvc
 ## Stable
 
 Projeto em quarententa, aguardando aprovação da comunidade. 
