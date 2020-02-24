@@ -135,3 +135,7 @@ Na representação interna do banco de dados pode ainda conter, como *cache* par
 as chaves `n_md5` e `w_md5` para controle de casos duplicados.
 
 Ver [exemplo completo de Santa Cruz de Minas](https://raw.githubusercontent.com/OSMBrasil/stable/master/data/MG/SantaCruzMinas/municipio.geojson).
+A visualização do mapa deve permitir também a visualização dos atributos, através por exemplo de clique sobre o polígono,
+e minimamente os atributos do primeiro nivel da árvore JSON.
+
+![](../assets/geojson-municipio-view.png)
