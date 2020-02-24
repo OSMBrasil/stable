@@ -100,12 +100,12 @@ Chave     | Significado ou valor esperado
 ----------|--------------
 **`name`**          | Nome oficial do município, [sh:name](https://schema.org/name).
 **`type`**          | Valor constante, definindo [osm:tag:type=boundary](https://wiki.openstreetmap.org/wiki/Tag:type=boundary).
-**`source`** | [osm:key:source](https://wiki.openstreetmap.org/wiki/Key:source), indicando o autor do dado (em geral IBGE).
+**`source`** | [osm:&#8203;key:source](https://wiki.openstreetmap.org/wiki/Key:source), indicando o autor do dado (em geral IBGE).
 **`boundary`** | Valor constante, definindo [osm:tag:boundary=administrative](https://wiki.openstreetmap.org/wiki/Tag:boundary=administrative).
-**`wikidata`** | [osm:key:wikidata](https://wiki.openstreetmap.org/wiki/Key:wikidata), contendo identificador Wikidata.
-**`wikipedia`** | [osm:key:wikipedia](https://wiki.openstreetmap.org/wiki/Key:wikipedia), contendo rótulo do município na Wikipedia da língua portugesa, em geral `pt:Nome do Município`.
-**`admin_level`** | [osm:key:admin_level](https://wiki.openstreetmap.org/wiki/Key:admin_level) contendo sempre o valor "8", exceto para Brasília.
-**`IBGE:GEOCODIGO`** | [osm:key:IBGE:GEOCODIGO](https://wiki.openstreetmap.org/wiki/Pt:Key:IBGE:GEOCODIGO) contendo o número do município no padrão IBGE.
+**`wikidata`** | [osm:&#8203;key&#8203;:wikidata](https://wiki.openstreetmap.org/wiki/Key:wikidata), contendo identificador Wikidata.
+**`wikipedia`** | [osm:&#8203;key&#8203;:wikipedia](https://wiki.openstreetmap.org/wiki/Key:wikipedia), contendo rótulo do município na Wikipedia da língua portugesa, em geral `pt:Nome do Município`.
+**`admin_level`** | [osm:&#8203;key&#8203;:admin_level](https://wiki.openstreetmap.org/wiki/Key:admin_level) contendo sempre o valor "8", exceto para Brasília.
+**`IBGE:GEOCODIGO`** | [osm&#8203;:&#8203;key&#8203;:&#8203;IBGE:GEOCODIGO](https://wiki.openstreetmap.org/wiki/Pt:Key:IBGE:GEOCODIGO) contendo o número do município no padrão IBGE.
 **`members`** | objeto JSON definindo, através de arrays, os *identificadores OSM* dos componentes (*map features* Node, Way ou Relation) que se juntaram para formar a geometria.
 
 Exemplo de `members`: 
