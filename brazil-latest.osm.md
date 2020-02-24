@@ -112,6 +112,7 @@ psql afa_testing -c "SELECT count(*) FROM osm.planet_osm_nodes" # [nodes]
 psql afa_testing -c "SELECT count(*) FROM osm.planet_osm_ways"  # [ways]
 psql afa_testing -c "SELECT count(*) FROM osm.planet_osm_rels"  # [rels]
 ```
+No terminal DOS Windows o resumo MD5 pode ser calculada por `CertUtil -hashfile ARQUIVO md5`.
 Abaixo o código-fonte Markdown para os metadados obtidos:
 
 ```markdown

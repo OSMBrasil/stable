@@ -1,20 +1,20 @@
+# Rodar com "sh file.sh"
+# para usar senha trocar conexão "postgres://localhost" por "postgres://myUser:myPass@localhost"
 
-#
-# Rodar depois de prepare01.sh!
-# e TROCAR SENHA AQUI DESSE SCRIPT! replace myPass pela senha correta
-#
+echo
+echo '# -- ATENÇÃO: leia, copie e cole aqui, e edite deletando estes comentários --'
+echo '# pré-requisitos: prepare01-1.sh'
+echo
 
-# conferir... Se deu tudo certo... Senão o mais prático é DROP DATABASE e recomeçar.
+mkdir -p /tmp/pg_io
 
-echo ' -- ATENÇÃO: edite, leia e delete essa linha --'
+wget -O /tmp/pg_io/br_city_codes.csv   -c https://raw.githubusercontent.com/datasets-br/city-codes/master/data/br-city-codes.csv
+wget -O /tmp/pg_io/br-region-codes.csv -c https://raw.githubusercontent.com/datasets-br/state-codes/master/data/br-region-codes.csv
+wget -O /tmp/pg_io/br-state-codes.csv  -c https://raw.githubusercontent.com/datasets-br/state-codes/master/data/br-state-codes.csv
 
-wget -O /tmp/br_city_codes.csv   -c https://raw.githubusercontent.com/datasets-br/city-codes/master/data/br-city-codes.csv
-wget -O /tmp/br-region-codes.csv -c https://raw.githubusercontent.com/datasets-br/state-codes/master/data/br-region-codes.csv
-wget -O /tmp/br-state-codes.csv  -c https://raw.githubusercontent.com/datasets-br/state-codes/master/data/br-state-codes.csv
+echo '# RODAR depois de adaptar ao seu psql:'
+echo 'psql postgres://localhost/osms0_lake < prepare02-1-libPub.sql'
+echo 'psql postgres://localhost/osms0_lake < prepare02-2-lib.sql'
 
-psql postgres://postgres:myPass@localhost/osm_stable_br < prepare02-1-libPub.sql
-psql postgres://postgres:myPass@localhost/osm_stable_br < prepare02-2-lib.sql
 
-echo ' -- Para o próximo passo melhor rodar em BAT (com & no final), vai demorar... copie e cole:'
 
-echo 'psql postgres://postgres:myPass@localhost/osm_stable_br < ./prepare03-danger.sql'

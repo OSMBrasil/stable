@@ -35,11 +35,11 @@ Além disso, do ponto de vista metodológico, é requerido certo grau de encapsu
 
 Tendo isso em vista, os nomes de bases (utilizados em `CREATE DATABASE nome_de_uma_base`) precisam ser controlados, respeitando-se as seguintes regras, finalidades e justificativas:
 
-Banco | Descrição | Justificativa
+Banco | Descrição | Justificativas
 ------|-----------|------
-**`osms0_lake`**|Repositório tipo "lake" de [preparo dos dados](https://en.wikipedia.org/wiki/Data_preparation) (ingestão, transformação e validação automática). Pode conter diversos países.|Faz papel de [Data Lake](https://en.wikipedia.org/wiki/Data_lake) para dados brutos (modelo legado) e seu preparo.
-**`osms1_testing`**|Repositório rigorosamente organizado, apenas com dados selecionados. Fase *testing*, para estabilização ("quarentena") e validação humana. Requer performance e modelo dados fixado pela projeto OSM-Stable.|Faz papel "testing distribution", ou seja, permite que auditores avaliem os dados novos a tempo de fazer correções. Quando quando houver mais de um país, fará também papel de [Data Warehouse](https://en.wikipedia.org/wiki/Data_warehouse). <br/>O código "1" auxilia na manutenção e, quando preservado, na semântica de códigos (ex. porta PostgREST `3101`).
-**`osms2_stable`**|Idem base `osm2_testing`, porém correspondendo à **fase de produção**. Todos os dados foram homologados, aceitos como "estáveis e qualificados".|Requer isolamento. <br/>O código "2" auxilia na manutenção e, quando preservado, na semântica de códigos (ex. porta PostgREST `3102`).
+**`osms0_lake`**|Repositório tipo "lake" de [preparo dos dados](https://en.wikipedia.org/wiki/Data_preparation) (ingestão, transformação e validação automática). Pode conter diversos países.|Encapsulamento, faz papel de [Data Lake](https://en.wikipedia.org/wiki/Data_lake) para dados brutos (input "as is" do modelo legado) e VIEWS ou funções para exportação ao *testing*.
+**`osms1_testing`**|Repositório rigorosamente organizado, nele entram apenas dados do _git branch_ de teste. Fase *testing*, para estabilização ("quarentena") e validação humana.|Encapsulamento, faz papel "testing distribution", ou seja, permite que auditores avaliem os dados novos a tempo de fazer correções. Quando quando houver mais de um país, fará também papel de [Data Warehouse](https://en.wikipedia.org/wiki/Data_warehouse). <br/>O código "1" auxilia na manutenção e, quando preservado, na semântica de códigos (ex. porta PostgREST `3101`).
+**`osms2_stable`**|Idem base `osm2_testing`, porém correspondendo à **fase de produção**. Todos os dados foram homologados, aceitos como "estáveis e qualificados".|Requer isolamento, faz papel de entrega final para o uso em produção. <br/>O código "2" auxilia na manutenção e, quando preservado, na semântica de códigos (ex. porta PostgREST `3102`).
 
 ## Formatos CSV e GeoJSON 
 

@@ -1,3 +1,4 @@
+xcvvxvc
 ## Stable
 
 Projeto em quarententa, aguardando aprovação da comunidade. 
@@ -9,3 +10,7 @@ ver pasta [**src/install**](src/install/README.md#software-de-gestão-do-reposit
 Para justificativas de decisões de projeto, ver [Rationale.md](docs/Rationale.md).
 
 Para verificar um exemplo de dados estáveis, ver por exemplo [data/PR/Curitiba](data/PR/Curitiba).
+
+NOTA: teste de visualização da documentação em http://addressforall.org/osms
+
+

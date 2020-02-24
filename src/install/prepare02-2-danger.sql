@@ -55,7 +55,7 @@ ALTER TABLE planet_osm_ways alter column tags type jsonb
 
 -- mais rapidos:
 ALTER TABLE planet_osm_polygon alter column tags type jsonb USING stable.osm_to_jsonb(tags);
-ALTER TABLE planet_osm_rels alter column tags type jsonb USING stable.osm_to_jsonb(tags);
+ALTER TABLE planet_osm_rels    alter column tags type jsonb USING stable.osm_to_jsonb(tags);
 
 
 -- Opcional LIXO:
@@ -68,12 +68,9 @@ UPDATE planet_osm_rels   --  ~1 minuto. 151.288 linhas
  SET tags = stable.tags_split_prefix(jsonb_strip_nulls_v2(tags));
 */
 
-UPDATE planet_osm_polygon
- SET tags = jsonb_strip_nulls_v2(tags);
-UPDATE planet_osm_line
- SET tags = jsonb_strip_nulls_v2(tags);
-UPDATE planet_osm_rels
- SET tags = jsonb_strip_nulls_v2(tags);
+UPDATE planet_osm_polygon SET tags = jsonb_strip_nulls_v2(tags);
+UPDATE planet_osm_line    SET tags = jsonb_strip_nulls_v2(tags);
+UPDATE planet_osm_rels    SET tags = jsonb_strip_nulls_v2(tags);
 
 
--- carrega 02-3-lib  e CONTINUA N0 04
+-- carrega 02-3-lib  

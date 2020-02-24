@@ -1,16 +1,14 @@
-#
-# TROCAR SENHA AQUI DESSE SCRIPT!  replace myPass pela senha correta
-#
-
-echo ' -- ATENÇÃO: edite, leia e delete essa linha --'
-
-# ... after install postgresql v10+, postgis v2+, etc. install osm2pgsql
-# ... afer DROP DATABASE osm_stable_br
-
-psql postgres://postgres:myPass@localhost -c "CREATE DATABASE osm_stable_br"
-
-psql postgres://postgres:myPass@localhost/osm_stable_br -c "CREATE EXTENSION hstore; CREATE EXTENSION postgis;"
-
-echo ' -- Rodar o seguinte comando, lembrando que pode demorar horas... copie e cole:'
+# editar este script! rodar com "sh file.sh"
 echo
-echo 'osm2pgsql -E 4326 -c -d osm_stable_br -U postgres -W -H localhost --slim --hstore --extra-attributes --hstore-add-index --multi-geometry --number-processes 4 --style /usr/local/share/osm2pgsql/empty.style /root/sandbox/brazil-latest.osm.pbf'
+echo '# -- ATENÇÃO: leia, copie e cole aqui, e edite deletando estes comentários --'
+echo '# pré-requisitos: Postgresql v10+, Postgis v2+, Osm2pgsql'
+echo
+echo '# -- Rodar o seguinte comando, depois de acertar a sua config para o comando psql:'
+echo 'psql postgres://localhost -c "CREATE DATABASE osms0_lake"'
+echo 'psql postgres://localhost/osms0_lake -c "CREATE EXTENSION hstore; CREATE EXTENSION postgis;"'
+echo
+echo '# -- Rodar o seguinte comando, lembrando que pode demorar horas...'
+echo 'osm2pgsql -E 4326 -c -d osms0_lake -U myUser -W -H localhost --slim --hstore --extra-attributes --hstore-add-index \'
+echo '  --multi-geometry --number-processes 4 --style /usr/local/share/osm2pgsql/empty.style /tmp/brazil-latest.osm.pbf'
+echo
+
