@@ -3,6 +3,6 @@ Documentação do *Projeto OSM-Brasil Stable*. Em construção. Documentos dispo
 
 * [HowTo export City GeoJSON](HowTo-cityGeoJSON.md)
 * [Justificativas para as decisões de projeto tomadas](Rationale.md)
-* Convenções adotadas (ex. nomes de bases de dados e nomes de tabelas).
+* [Convenções adotadas](Conventions.md) (ex. nomes de bases de dados e nomes de tabelas).
 
 
