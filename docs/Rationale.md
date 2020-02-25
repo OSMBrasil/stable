@@ -1,7 +1,9 @@
-## JUSTIFICATIVAS
+# Justificativas
 
 Memorial resumido das **justificativas técnicas** para as decisões do *projeto OSM-BR-stable*. 
-A seguir cada seção ou seção/subseção corresponde a uma justificativa.
+A seguir cada seção corresponde a uma justificativa.
+
+----
 
 ## Fonte de metadados do município
 A fonte [datasets.ok.org.br/city-codes](http://datasets.ok.org.br/city-codes), baseada em Wikidata, IBGE e OSM tem justificativas
@@ -113,7 +115,7 @@ A seguir algumas decisões de projeto, baseadas na representação PostgreSQL do
 Parece ser o software de "conversão de Planet" mais popular e com uma comunidade mais ativa. Em particular, devido à sua relação íntima com o [Nominatim](https://nominatim.openstreetmap.org) e outros projetos que estarão também relacionados ao *stable*. 
 
 ### JSONb no Osm2pgsql
-Entre as configurações e adaptações do `osm2pgsql`, as principais opções de configuração são já expressas no script [`src/prepare01-1.sh`](src/prepare01-1.sh). Com relação à decisão pelo formato JSONb ao invés do HStore, 
+Entre as configurações e adaptações do `osm2pgsql`, as principais opções de configuração são já expressas no script [`src/prepare01-1.sh`](https://github.com/OSMBrasil/stable/blob/master/src/install/prepare01-1.sh). Com relação à decisão pelo formato JSONb ao invés do HStore, 
 
 * No github estamos usando pull request com [syncing-a-fork](https://help.github.com/articles/syncing-a-fork)...
 * [Performance](http://mateuszmarchel.com/blog/2016/06/29/jsonb-vs-hstore-performance-battle/): *"If you already have hstore field in your table, there is no reason why you should change it to jsonb for performance gain (especially if it's indexed with GIN)"*, mas no osm2pgsql o default é sem GIN, onde perde-se performance e a recomendação final é *"But if you are thinking what type you should choose for your next project - go with jsonb"*
@@ -134,13 +136,13 @@ Sendo tão abrangente, são necessários testes sobre amostragens representativa
 ### Exemplos de referência
 Foram eleitos, principalmente por terem potencias curadores já contatados, os seguintes municípios, a partir dos quais ficariam exemplificados por completo os vários aspectos do repositório:
 
-* [**Boa Vista**](../data/RR/BoaVista/municipio.geojson) (IBGE ??).
+* [**Boa Vista**](https://github.com/OSMBrasil/stable/blob/master/data/RR/BoaVista/municipio.geojson) (IBGE ??).
 
-* [**Curitiba**](../data/PR/Curitiba/municipio.geojson) (IBGE 4106902);
+* [**Curitiba**](https://github.com/OSMBrasil/stable/blob/master/data/PR/Curitiba/municipio.geojson) (IBGE 4106902);
 
-* [**Jaraguá do Sul**](../data/SC/JaraguaSul/municipio.geojson) (IBGE 4208906);
+* [**Jaraguá do Sul**](https://github.com/OSMBrasil/stable/blob/master/data/SC/JaraguaSul/municipio.geojson) (IBGE 4208906);
 
-* [**Monteiro Lobato**](../data/SP/MonteiroLobato/municipio.geojson) (IBGE 3531704).
+* [**Monteiro Lobato**](https://github.com/OSMBrasil/stable/blob/master/data/SP/MonteiroLobato/municipio.geojson) (IBGE 3531704).
 
 ### Casos extremos
 Com amostragem apenas parcial para testar e/ou exemplificar usos específicos do repositório, sem compromisso com completeza:

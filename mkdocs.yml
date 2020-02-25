@@ -1,2 +1,6 @@
 site_name: OSM-Stable Brasil
+site_url:  http://addressforall.org/osms/
+repo_url:  https://github.com/OSMBrasil/stable
+edit_uri:  blob/master/docs/
+site_description: establidade
 

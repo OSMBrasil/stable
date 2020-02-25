@@ -1,5 +1,6 @@
 ## Dump OpensStreetMap do Brasil
-Arquivos utilizados como fonte de dados principal deste repositóiro. 
+Arquivos utilizados como fonte de dados principal deste repositóiro,
+e preservados nos repositórios do [Instituto AddressForAll](https://github.com/AddressForAll/digital-preservartion-BR). 
 O download destes arquivos em geral  recebe o rótulo de `brazil-latest.osm`. 
 A seguir o histórico e metadados das versões utilizadas, organizadas por data (ano-mês-dia).
 

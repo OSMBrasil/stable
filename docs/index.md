@@ -1,5 +1,9 @@
-## DOCUMENTAÇÃO
-Documentação do *Projeto OSM-Stable Brasil*. Em construção. Documentos disponíveis:
+# DOCUMENTAÇÃO
+Documentação do *Projeto OSM-Stable Brasil*. Em construção. 
+
+-----
+
+Documentos disponíveis:
 
 * [Convenções adotadas](Conventions.md) (ex. nomes de bases de dados e nomes de tabelas).
 * [Justificativas para as decisões de projeto tomadas](Rationale.md), a maioria compiladas de discussões nas git/issues.

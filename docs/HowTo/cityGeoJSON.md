@@ -1,9 +1,13 @@
+# Converter município para GeoJSON
+
 Todos os municípios podem ser exportados a partir da carga do "OSM-Planet", usando o aplicativo de terminal `osm2pgsql`, 
-conforme descrito no [README](README.md). 
+conforme descrito no [`index.md`](index.md). 
 A metodologia de exportação segue as justificativas apresentadas no [`Rationale.md`](../Rationale.md).
 
 A seguir exemplos de localização e verificação, garantindo a qualidade da extração de um município,
 para alimentar o presente *git* com seu GeoJSON.
+
+----
 
 ## Exemplo de RR-BoaVista no stable 2018 JSON
 Pelo [datasets.ok.org.br/city-codes](http://datasets.ok.org.br/city-codes) temos confirmação de que o identificador numérico IBGE é 1400100
@@ -53,8 +57,7 @@ Já temos a tabela e o osm_id, portanto bastaria exportar o resultado de [ST_AsG
  FROM planet_osm_polygon WHERE osm_id=-326286;
 ```
 a única coisa que falta no JSON é o atributo `properties`  
-que requer uso de função da biblioteca [`src/prepare02-lib.sql`](src/prepare02-lib.sql),
+que requer uso de função da biblioteca [`src/install/prepare02-3-lib.sql`](https://github.com/OSMBrasil/stable/blob/master/src/install/prepare02-3-lib.sql)
 
-   ....
-   
+...   
    

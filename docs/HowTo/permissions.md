@@ -1,4 +1,4 @@
-## Permissoes nos recursos do projeto
+# Permissõess nos recursos do projeto
 
 Arquivos e pastas do Projeto OSM-Stable seguem algumas convenções, principalmente no sentido de facilitar o diálogo nos Guias e tutoriais:
 

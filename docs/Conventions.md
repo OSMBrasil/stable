@@ -1,6 +1,8 @@
 # Convenções adotadas
 
-Neste documento são descritas as convenções adotadas no projeto.
+Nesta seção são descritas as convenções adotadas no projeto.
+
+----
 
 ## Apresentação e diretivas
 
@@ -22,7 +24,7 @@ Foram adotados os formatos GeoJSON para geometrias e formato CSV para dados cada
 ## Referência estável 
 
 Os metadados da "cópia OSM Planet" ficam registrados no documento da raiz do repositório,
-[`brazil-latest.osm.md`](../brazil-latest.osm.md). Softwares de *parsing*  e  *templating* garantem 
+[`brazil-latest.osm.md`](https://github.com/OSMBrasil/stable/blob/master/brazil-latest.osm.md). Softwares de *parsing*  e  *templating* garantem 
 a sua expressão consistente em JSON. 
 
 ## Nomes de banco de dados
@@ -139,4 +141,5 @@ A [visualização do mapa](https://github.com/OSMBrasil/stable/blob/master/data/
 visualização dos atributos, através por exemplo de clique sobre o polígono,
 e minimamente os atributos do primeiro nivel da árvore JSON.
 
-![](../assets/geojson-municipio-view.png)
+![](https://raw.githubusercontent.com/OSMBrasil/stable/master/assets/geojson-municipio-view.png)
+
