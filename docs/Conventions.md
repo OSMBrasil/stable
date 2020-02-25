@@ -1,6 +1,6 @@
-# Convenções adotadas
+# Convenções
 
-Nesta seção são descritas as convenções adotadas no projeto.
+Nesta seção são descritas as **convenções adotadas no projeto**.
 
 ----
 
@@ -16,10 +16,12 @@ Além disso algumas delas são conservadoras, não permitindo a adoção de tecn
 A _Osm2pgsql_ por exemplo [se recusa a dar a opção JSONb](https://github.com/openstreetmap/osm2pgsql/issues/672).
 
 No Projeto OSM-Stable  adota-se a filosofia [*"Convention over configuration"*](https://en.wikipedia.org/wiki/Convention_over_configuration),
-e um modelo dados baseado em _Osm2pgsql_  e  representações JSONb controladas.
+e um modelo dados interno baseado em _Osm2pgsql_  e  representações JSONb controladas.
 
 As funções de exportação de dados do OSM-Stable, para seu repositório *git*, também são padronizadas.
-Foram adotados os formatos GeoJSON para geometrias e formato CSV para dados cadastrais, com representação de ponto Geohash.
+Foram adotados os formatos [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) para geometrias
+e [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) para dados cadastrais,
+com representação de ponto [Geohash](https://en.wikipedia.org/wiki/Geohash).
 
 ## Referência estável 
 

@@ -1,7 +1,8 @@
 # DOCUMENTAÇÃO
+
 Documentação do *Projeto OSM-Stable Brasil*. Em construção. 
 
------
+---
 
 Documentos disponíveis:
 
@@ -16,3 +17,5 @@ Documentos de ajuda, do tipo "como fazer", **HowTo**:
 -----
 
 Teste para a visualização desta documentação em http://addressforall.org/osms
+
+O repositório git do projeto se encontra em https://github.com/OSMBrasil/stable

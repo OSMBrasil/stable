@@ -2,11 +2,15 @@
 
 Arquivos e pastas do Projeto OSM-Stable seguem algumas convenções, principalmente no sentido de facilitar o diálogo nos Guias e tutoriais:
 
-* para facilitar o diálogo, supor que todos os repositórios *git* possuem um clone em `/opt/gits/OSM`.
+* para facilitar o diálogo, supor que todos os repositórios *git* possuem um clone em `/opt/gits`.
 
 * para facilitar a gestão no NGINX ou Apache, bem como a importação/exportação de arquivos com PostgreSQL, supor que todos tenham acesso ao grupo `www-data`, utilizado na pasta `/var/www` e eventualmente nas pastas `/opt` e `/tmp` conforme adoção de demais regras.
 
 * também para a gestão de importação/exportação de arquivos com PostgreSQL, supor que sempre existe uma pasta `/tmp/pg_io` de propriedade do usuário `postgres`.
+
+---
+
+## No terminal Linux
 
 Expressando todas as regras em termos de comandos e "boas práticas" (depende do nivel de segurança requerido), supondo terminal bash em ambiente Debian:
 

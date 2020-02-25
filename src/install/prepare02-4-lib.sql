@@ -9,7 +9,7 @@ CREATE EXTENSION IF NOT EXISTS fuzzyStrMatch; -- for metaphone() and levenshtein
 CREATE EXTENSION IF NOT EXISTS file_fdw;
 CREATE SERVER IF NOT EXISTS files FOREIGN DATA WRAPPER file_fdw;
 
-CREATE SCHEMA IF NOT EXISTS stable; -- OSM BR Stable
+-- lib2-3 CREATE SCHEMA IF NOT EXISTS stable; -- OSM BR Stable
 
 /*  Conferir se haverá uso posterior, senão bobagem só para inicialização:
 CREATE  TABLE stable.element_exists(
@@ -53,40 +53,6 @@ $f$ LANGUAGE SQL IMMUTABLE;
 
 -- SELECT member_type, count(*) n FROM stable.member_of group by 1 order by 2 desc,1;
 -- usar os mais frquentes apenas .
-
-
----- ---
-
-CREATE or replace FUNCTION stable.lexname_to_path(
-  p_lexname text
-) RETURNS text AS $f$
-  SELECT string_agg(initcap(t),'')
-  FROM regexp_split_to_table(p_lexname, E'[\\.\\s]+') t
-$f$ LANGUAGE SQL IMMUTABLE;
-
-
-CREATE or replace FUNCTION stable.osm_to_jsonb_remove_prefix(
-  jsonb,text default 'name:'
-) RETURNS text[] AS $f$
-  -- retorna lista de tags prefixadas, para subtrair do objeto.
-  SELECT COALESCE((
-    SELECT array_agg(t)
-    FROM jsonb_object_keys($1) t
-    WHERE position($2 in t)=1
-  ), '{}'::text[])
-$f$ LANGUAGE SQL IMMUTABLE;
-
-CREATE or replace FUNCTION stable.tags_split_prefix(
-  jsonb,
-  text default 'name:'
-) RETURNS jsonb AS $f$
-  -- transforma objeto com prefixos em objeto com sub-objectos.
-  SELECT ($1-stable.osm_to_jsonb_remove_prefix($1)) || jsonb_build_object($2,(
-    SELECT jsonb_object_agg(substr(t1,t2.l+1),$1->t1)
-    FROM jsonb_object_keys($1) t1, (select length($2) l) t2
-    WHERE position($2 in t1)=1
-  ))
-$f$ LANGUAGE SQL IMMUTABLE;
 
 
 /*

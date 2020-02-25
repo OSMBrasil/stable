@@ -1,6 +1,16 @@
 site_name: OSM-Stable Brasil
+
 site_url:  http://addressforall.org/osms/
 repo_url:  https://github.com/OSMBrasil/stable
 edit_uri:  blob/master/docs/
-site_description: establidade
+
+site_description: establidade nos daods do OpenStreetMap, para uso confiável em aplicações críticas, usooficial nas prefeituras e outros.
+
+nav:
+  - Home: index.md
+  - Conventions.md
+  - Rationale.md
+  - How to:
+     - HowTo/cityGeoJSON.md
+     - HowTo/permissions.md
 
