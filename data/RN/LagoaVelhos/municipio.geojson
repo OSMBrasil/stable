@@ -1,0 +1,116 @@
+{
+    "id": "R301146",
+    "bbox": [
+        -35.924799,
+        -6.073384,
+        -35.778337,
+        -5.946425
+    ],
+    "type": "Polygon",
+    "properties": {
+        "name": "Lagoa de Velhos",
+        "type": "boundary",
+        "source": "IBGE",
+        "members": {
+            "n": {
+                "admin_centre": [
+                    415521387
+                ]
+            },
+            "w": {
+                "outer": [
+                    43039415,
+                    43039552,
+                    43039618,
+                    43039721,
+                    43039765
+                ]
+            }
+        },
+        "boundary": "administrative",
+        "wikidata": "Q534097",
+        "dup_geoms": [
+            {
+                "id": "R6246018",
+                "name": "Lagoa de Velhos",
+                "type": "boundary",
+                "source": "IBGE",
+                "members": {
+                    "n": {
+                        "admin_centre": [
+                            415521387
+                        ]
+                    },
+                    "n_md5": "7f30339f62737ffd",
+                    "w_md5": "a02ecd6c470e19b5",
+                    "n_size": 1,
+                    "w_size": 5
+                },
+                "boundary": "administrative",
+                "admin_level": "9",
+                "border_type": "district",
+                "IBGE:GEOCODIGO": "240640305"
+            }
+        ],
+        "wikipedia": "pt:Lagoa de Velhos",
+        "population": "2778",
+        "admin_level": "8",
+        "IBGE:GEOCODIGO": "2406403"
+    },
+    "coordinates": [
+        [
+            [
+                -35.924799,
+                -6.010624
+            ],
+            [
+                -35.871234,
+                -6.043379
+            ],
+            [
+                -35.822161,
+                -6.073384
+            ],
+            [
+                -35.799078,
+                -6.043085
+            ],
+            [
+                -35.778337,
+                -6.015863
+            ],
+            [
+                -35.832898,
+                -5.946425
+            ],
+            [
+                -35.839953,
+                -5.950752
+            ],
+            [
+                -35.864797,
+                -5.968284
+            ],
+            [
+                -35.898136,
+                -5.99181
+            ],
+            [
+                -35.898477,
+                -5.99205
+            ],
+            [
+                -35.910842,
+                -6.000775
+            ],
+            [
+                -35.917671,
+                -6.005594
+            ],
+            [
+                -35.924799,
+                -6.010624
+            ]
+        ]
+    ]
+}

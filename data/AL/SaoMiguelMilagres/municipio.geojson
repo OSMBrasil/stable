@@ -1,0 +1,130 @@
+{
+    "id": "R303830",
+    "bbox": [
+        -35.476000,
+        -9.286000,
+        -35.342000,
+        -9.190000
+    ],
+    "type": "Polygon",
+    "properties": {
+        "name": "São Miguel dos Milagres",
+        "type": "boundary",
+        "source": "IBGE",
+        "members": {
+            "n": {
+                "admin_centre": [
+                    415522111
+                ]
+            },
+            "w": {
+                "outer": [
+                    43188820,
+                    43188828,
+                    43189055
+                ]
+            }
+        },
+        "boundary": "administrative",
+        "wikidata": "Q740975",
+        "dup_geoms": [
+            {
+                "id": "R6179539",
+                "name": "São Miguel dos Milagres",
+                "type": "boundary",
+                "source": "IBGE",
+                "members": {
+                    "n": {
+                        "admin_centre": [
+                            415522111
+                        ]
+                    },
+                    "n_md5": "33d0aa960704d56d",
+                    "w_md5": "d7d17772831dc8e7",
+                    "n_size": 1,
+                    "w_size": 3
+                },
+                "boundary": "administrative",
+                "admin_level": "9",
+                "border_type": "district",
+                "IBGE:GEOCODIGO": "270870905"
+            }
+        ],
+        "wikipedia": "pt:São Miguel dos Milagres",
+        "population": "7445",
+        "admin_level": "8",
+        "IBGE:GEOCODIGO": "2708709"
+    },
+    "coordinates": [
+        [
+            [
+                -35.476,
+                -9.2
+            ],
+            [
+                -35.469,
+                -9.212
+            ],
+            [
+                -35.465,
+                -9.224
+            ],
+            [
+                -35.424,
+                -9.245
+            ],
+            [
+                -35.415,
+                -9.256
+            ],
+            [
+                -35.395,
+                -9.272
+            ],
+            [
+                -35.386,
+                -9.286
+            ],
+            [
+                -35.374,
+                -9.278
+            ],
+            [
+                -35.354,
+                -9.255
+            ],
+            [
+                -35.343,
+                -9.238
+            ],
+            [
+                -35.342,
+                -9.231
+            ],
+            [
+                -35.349,
+                -9.23
+            ],
+            [
+                -35.359,
+                -9.229
+            ],
+            [
+                -35.378,
+                -9.209
+            ],
+            [
+                -35.427,
+                -9.193
+            ],
+            [
+                -35.475,
+                -9.19
+            ],
+            [
+                -35.476,
+                -9.2
+            ]
+        ]
+    ]
+}

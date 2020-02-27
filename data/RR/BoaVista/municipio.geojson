@@ -8,33 +8,8 @@
     ],
     "type": "Polygon",
     "properties": {
-        "flag": "http://upload.wikimedia.org/wikipedia/commons/0/08/Bandeira_de_Boa_Vista_%28Roraima%29.svg",
         "name": "Boa Vista",
         "type": "boundary",
-        "name:": {
-            "ar": "بوا فيستا",
-            "be": "Боа-Віста",
-            "bg": "Боа Виста",
-            "fa": "بوا ویستا",
-            "he": "בואה ויסטה",
-            "hy": "Բոա Վիստա",
-            "ja": "ボア・ヴィスタ",
-            "ka": "ბოა-ვისტა",
-            "kk": "Боа-Виста",
-            "ko": "보아비스타",
-            "lt": "Boa Višta",
-            "lv": "Boavista",
-            "mk": "Боа Вишта",
-            "mr": "बोआ व्हिस्ता",
-            "nl": "Boa Vista",
-            "pt": "Boa Vista",
-            "ru": "Боа-Виста",
-            "sr": "Боа Виста",
-            "tg": "Боа-Виста",
-            "uk": "Боа-Віста",
-            "uz": "BoaVista",
-            "zh": "博阿维斯塔"
-        },
         "source": "IBGE",
         "members": {
             "n": {
@@ -69,11 +44,7 @@
                     459158684,
                     459158685
                 ]
-            },
-            "n_md5": "2de17d193d5482d5",
-            "w_md5": "a1d1b64939add0e0",
-            "n_size": 1,
-            "w_size": 24
+            }
         },
         "website": "http://www.boavista.rr.gov.br/",
         "boundary": "administrative",

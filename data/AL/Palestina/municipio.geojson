@@ -1,0 +1,110 @@
+{
+    "id": "R303823",
+    "bbox": [
+        -37.372000,
+        -9.736000,
+        -37.239000,
+        -9.636000
+    ],
+    "type": "Polygon",
+    "properties": {
+        "name": "Palestina",
+        "type": "boundary",
+        "source": "IBGE",
+        "members": {
+            "n": {
+                "admin_centre": [
+                    415521936
+                ]
+            },
+            "w": {
+                "outer": [
+                    43188698,
+                    43188737,
+                    415170892
+                ]
+            }
+        },
+        "boundary": "administrative",
+        "wikidata": "Q511396",
+        "dup_geoms": [
+            {
+                "id": "R6186613",
+                "name": "Palestina",
+                "type": "boundary",
+                "source": "IBGE",
+                "members": {
+                    "n": {
+                        "admin_centre": [
+                            415521936
+                        ]
+                    },
+                    "n_md5": "b89e1038e62cdb26",
+                    "w_md5": "46c94a5bf19b2298",
+                    "n_size": 1,
+                    "w_size": 3
+                },
+                "boundary": "administrative",
+                "admin_level": "9",
+                "border_type": "district",
+                "IBGE:GEOCODIGO": "270620805"
+            }
+        ],
+        "wikipedia": "pt:Palestina (Alagoas)",
+        "population": "5024",
+        "admin_level": "8",
+        "IBGE:GEOCODIGO": "2706208"
+    },
+    "coordinates": [
+        [
+            [
+                -37.372,
+                -9.675
+            ],
+            [
+                -37.346,
+                -9.688
+            ],
+            [
+                -37.334651,
+                -9.702493
+            ],
+            [
+                -37.328,
+                -9.711
+            ],
+            [
+                -37.239,
+                -9.736
+            ],
+            [
+                -37.288,
+                -9.686
+            ],
+            [
+                -37.303,
+                -9.636
+            ],
+            [
+                -37.317,
+                -9.66
+            ],
+            [
+                -37.336,
+                -9.671
+            ],
+            [
+                -37.346,
+                -9.67
+            ],
+            [
+                -37.359,
+                -9.675
+            ],
+            [
+                -37.372,
+                -9.675
+            ]
+        ]
+    ]
+}

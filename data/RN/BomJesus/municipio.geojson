@@ -1,0 +1,107 @@
+{
+    "id": "R301131",
+    "bbox": [
+        -35.650182,
+        -6.079545,
+        -35.537000,
+        -5.932000
+    ],
+    "type": "Polygon",
+    "properties": {
+        "name": "Bom Jesus",
+        "type": "boundary",
+        "source": "IBGE",
+        "members": {
+            "n": {
+                "admin_centre": [
+                    415521488
+                ]
+            },
+            "w": {
+                "outer": [
+                    43039321,
+                    43039462,
+                    43039608,
+                    43039670
+                ]
+            }
+        },
+        "boundary": "administrative",
+        "wikidata": "Q2011643",
+        "dup_geoms": [
+            {
+                "id": "R6247935",
+                "name": "Bom Jesus",
+                "type": "boundary",
+                "source": "IBGE",
+                "members": {
+                    "n": {
+                        "admin_centre": [
+                            415521488
+                        ]
+                    },
+                    "n_md5": "a4e0f8cda476f386",
+                    "w_md5": "5da6dd949bff1e1d",
+                    "n_size": 1,
+                    "w_size": 4
+                },
+                "boundary": "administrative",
+                "admin_level": "9",
+                "border_type": "district",
+                "IBGE:GEOCODIGO": "240170105"
+            }
+        ],
+        "wikipedia": "pt:Bom Jesus (Rio Grande do Norte)",
+        "population": "8721",
+        "admin_level": "8",
+        "IBGE:GEOCODIGO": "2401701"
+    },
+    "coordinates": [
+        [
+            [
+                -35.650182,
+                -5.976438
+            ],
+            [
+                -35.647,
+                -6.016
+            ],
+            [
+                -35.570779,
+                -6.079545
+            ],
+            [
+                -35.557729,
+                -6.046777
+            ],
+            [
+                -35.537,
+                -5.995
+            ],
+            [
+                -35.541,
+                -5.986
+            ],
+            [
+                -35.555,
+                -5.948
+            ],
+            [
+                -35.556,
+                -5.948
+            ],
+            [
+                -35.572,
+                -5.932
+            ],
+            [
+                -35.601,
+                -5.948
+            ],
+            [
+                -35.650182,
+                -5.976438
+            ]
+        ]
+    ]
+}
