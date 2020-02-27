@@ -1,0 +1,119 @@
+{
+    "id": "R303924",
+    "bbox": [
+        -37.009268,
+        -10.391999,
+        -36.900458,
+        -10.276000
+    ],
+    "type": "Polygon",
+    "properties": {
+        "name": "Malhada dos Bois",
+        "type": "boundary",
+        "source": "IBGE",
+        "members": {
+            "n": {
+                "admin_centre": [
+                    415521950
+                ]
+            },
+            "w": {
+                "outer": [
+                    43189199,
+                    43189254,
+                    43189319,
+                    43189377
+                ]
+            }
+        },
+        "boundary": "administrative",
+        "wikidata": "Q2078302",
+        "dup_geoms": [
+            {
+                "id": "R6170297",
+                "name": "Malhada dos Bois",
+                "type": "boundary",
+                "source": "IBGE",
+                "members": {
+                    "n": {
+                        "admin_centre": [
+                            415521950
+                        ]
+                    },
+                    "n_md5": "1bb6ed6a4b729995",
+                    "w_md5": "cf0f53b75bc4691f",
+                    "n_size": 1,
+                    "w_size": 4
+                },
+                "boundary": "administrative",
+                "admin_level": "9",
+                "border_type": "district",
+                "IBGE:GEOCODIGO": "280380705"
+            }
+        ],
+        "wikipedia": "pt:Malhada dos Bois",
+        "population": "3610",
+        "admin_level": "8",
+        "IBGE:GEOCODIGO": "2803807"
+    },
+    "coordinates": [
+        [
+            [
+                -37.009268,
+                -10.302185
+            ],
+            [
+                -36.97,
+                -10.336
+            ],
+            [
+                -36.95,
+                -10.356
+            ],
+            [
+                -36.927,
+                -10.381
+            ],
+            [
+                -36.915617,
+                -10.391999
+            ],
+            [
+                -36.900458,
+                -10.350327
+            ],
+            [
+                -36.902541,
+                -10.324091
+            ],
+            [
+                -36.917937,
+                -10.317014
+            ],
+            [
+                -36.932452,
+                -10.308208
+            ],
+            [
+                -36.936,
+                -10.306
+            ],
+            [
+                -36.933,
+                -10.276
+            ],
+            [
+                -36.937,
+                -10.278
+            ],
+            [
+                -36.956,
+                -10.29
+            ],
+            [
+                -37.009268,
+                -10.302185
+            ]
+        ]
+    ]
+}

@@ -1,0 +1,115 @@
+{
+    "id": "R301174",
+    "bbox": [
+        -36.171979,
+        -5.655267,
+        -35.992000,
+        -5.405000
+    ],
+    "type": "Polygon",
+    "properties": {
+        "name": "Pedra Preta",
+        "type": "boundary",
+        "source": "IBGE",
+        "members": {
+            "n": {
+                "admin_centre": [
+                    415520870
+                ]
+            },
+            "w": {
+                "outer": [
+                    43039750,
+                    43039751,
+                    43039811,
+                    419995193
+                ]
+            }
+        },
+        "boundary": "administrative",
+        "wikidata": "Q1857718",
+        "dup_geoms": [
+            {
+                "id": "R6243704",
+                "name": "Pedra Preta",
+                "type": "boundary",
+                "source": "IBGE",
+                "members": {
+                    "n": {
+                        "admin_centre": [
+                            415520870
+                        ]
+                    },
+                    "n_md5": "1ac21850dae37aeb",
+                    "w_md5": "191f48bc0bc14274",
+                    "n_size": 1,
+                    "w_size": 4
+                },
+                "boundary": "administrative",
+                "admin_level": "9",
+                "border_type": "district",
+                "IBGE:GEOCODIGO": "240960505"
+            }
+        ],
+        "wikipedia": "pt:Pedra Preta (Rio Grande do Norte)",
+        "population": "2732",
+        "admin_level": "8",
+        "IBGE:GEOCODIGO": "2409605"
+    },
+    "coordinates": [
+        [
+            [
+                -36.171979,
+                -5.544619
+            ],
+            [
+                -36.143697,
+                -5.566936
+            ],
+            [
+                -36.143166,
+                -5.591523
+            ],
+            [
+                -36.137903,
+                -5.595689
+            ],
+            [
+                -36.112571,
+                -5.615715
+            ],
+            [
+                -36.062536,
+                -5.655267
+            ],
+            [
+                -36.056,
+                -5.638
+            ],
+            [
+                -35.992,
+                -5.463
+            ],
+            [
+                -36.028,
+                -5.444
+            ],
+            [
+                -36.063,
+                -5.405
+            ],
+            [
+                -36.128,
+                -5.456
+            ],
+            [
+                -36.141,
+                -5.5
+            ],
+            [
+                -36.171979,
+                -5.544619
+            ]
+        ]
+    ]
+}

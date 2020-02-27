@@ -1,0 +1,128 @@
+{
+    "id": "R303859",
+    "bbox": [
+        -36.211000,
+        -9.472000,
+        -36.108000,
+        -9.309000
+    ],
+    "type": "Polygon",
+    "properties": {
+        "name": "Cajueiro",
+        "type": "boundary",
+        "source": "IBGE",
+        "members": {
+            "n": {
+                "admin_centre": [
+                    415521719
+                ]
+            },
+            "w": {
+                "outer": [
+                    43188714,
+                    43188734,
+                    43188936,
+                    43189052,
+                    414483235
+                ]
+            }
+        },
+        "boundary": "administrative",
+        "wikidata": "Q2019063",
+        "dup_geoms": [
+            {
+                "id": "R6179449",
+                "name": "Cajueiro",
+                "type": "boundary",
+                "source": "IBGE",
+                "members": {
+                    "n": {
+                        "admin_centre": [
+                            415521719
+                        ]
+                    },
+                    "n_md5": "a0bb5094e7b68c7b",
+                    "w_md5": "37c3da2887d6b81c",
+                    "n_size": 1,
+                    "w_size": 5
+                },
+                "boundary": "administrative",
+                "admin_level": "9",
+                "border_type": "district",
+                "IBGE:GEOCODIGO": "270130805"
+            }
+        ],
+        "wikipedia": "pt:Cajueiro (Alagoas)",
+        "population": "20670",
+        "admin_level": "8",
+        "IBGE:GEOCODIGO": "2701308"
+    },
+    "coordinates": [
+        [
+            [
+                -36.211,
+                -9.453
+            ],
+            [
+                -36.208,
+                -9.455
+            ],
+            [
+                -36.155,
+                -9.472
+            ],
+            [
+                -36.129,
+                -9.405
+            ],
+            [
+                -36.128,
+                -9.403
+            ],
+            [
+                -36.119,
+                -9.38
+            ],
+            [
+                -36.108,
+                -9.355
+            ],
+            [
+                -36.11,
+                -9.339
+            ],
+            [
+                -36.112,
+                -9.311
+            ],
+            [
+                -36.142,
+                -9.31
+            ],
+            [
+                -36.182,
+                -9.309
+            ],
+            [
+                -36.179,
+                -9.344
+            ],
+            [
+                -36.179,
+                -9.359
+            ],
+            [
+                -36.184,
+                -9.376
+            ],
+            [
+                -36.201,
+                -9.426
+            ],
+            [
+                -36.211,
+                -9.453
+            ]
+        ]
+    ]
+}

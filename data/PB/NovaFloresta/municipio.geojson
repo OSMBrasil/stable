@@ -1,0 +1,106 @@
+{
+    "id": "R301344",
+    "bbox": [
+        -36.226407,
+        -6.559000,
+        -36.174000,
+        -6.430000
+    ],
+    "type": "Polygon",
+    "properties": {
+        "name": "Nova Floresta",
+        "type": "boundary",
+        "source": "IBGE",
+        "members": {
+            "n": {
+                "admin_centre": [
+                    415521253
+                ]
+            },
+            "w": {
+                "outer": [
+                    43039682,
+                    43041786,
+                    43041809
+                ]
+            }
+        },
+        "boundary": "administrative",
+        "wikidata": "Q521125",
+        "dup_geoms": [
+            {
+                "id": "R6231385",
+                "name": "Nova Floresta",
+                "type": "boundary",
+                "source": "IBGE",
+                "members": {
+                    "n": {
+                        "admin_centre": [
+                            415521253
+                        ]
+                    },
+                    "n_md5": "31a486fb68fd3061",
+                    "w_md5": "c9b8541af8ba92bd",
+                    "n_size": 1,
+                    "w_size": 3
+                },
+                "boundary": "administrative",
+                "admin_level": "9",
+                "border_type": "district",
+                "IBGE:GEOCODIGO": "251010505"
+            }
+        ],
+        "wikipedia": "pt:Nova Floresta",
+        "population": "10310",
+        "admin_level": "8",
+        "IBGE:GEOCODIGO": "2510105"
+    },
+    "coordinates": [
+        [
+            [
+                -36.226407,
+                -6.434983
+            ],
+            [
+                -36.226,
+                -6.452
+            ],
+            [
+                -36.226,
+                -6.467
+            ],
+            [
+                -36.225,
+                -6.483
+            ],
+            [
+                -36.225,
+                -6.559
+            ],
+            [
+                -36.18,
+                -6.47
+            ],
+            [
+                -36.18,
+                -6.469
+            ],
+            [
+                -36.174,
+                -6.43
+            ],
+            [
+                -36.203675,
+                -6.433083
+            ],
+            [
+                -36.204372,
+                -6.43305
+            ],
+            [
+                -36.226407,
+                -6.434983
+            ]
+        ]
+    ]
+}
