@@ -146,7 +146,8 @@ CREATE or replace FUNCTION stable.rel_dup_properties(
    ) t1
   ) t2
 $f$ LANGUAGE SQL IMMUTABLE;
-/* exemplo de uso:
+
+/* -- exemplo de uso:
 SELECT file_put_contents('/tmp/lixo.json', (
   SELECT jsonb_pretty(stable.rel_properties(id)
        || stable.rel_dup_properties(id,'r',members_md5_int,members) )
@@ -157,10 +158,71 @@ SELECT file_put_contents('/tmp/lixo.json', (
 SELECT t1.name_path, t1.id,
  file_put_contents('/tmp/final-'||t1.id||'.json', (
   SELECT
-    trim((
+    trim(((
        jsonb_strip_nulls(stable.rel_properties(r1.id)
        || COALESCE(stable.rel_dup_properties(r1.id,'r',r1.members_md5_int,r1.members),'{}'::jsonb) )
-    )::text)
+    ) -'flag' -'name:' #-'{"members","n_md5"}' #-'{"members","w_md5"}' #-'{"members","n_size"}' #-'{"members","w_size"}' )::text)
+    --trim((
+    --   jsonb_strip_nulls(stable.rel_properties(r1.id)
+    --   || COALESCE(stable.rel_dup_properties(r1.id,'r',r1.members_md5_int,r1.members),'{}'::jsonb) )
+    --)::text)
+  FROM  planet_osm_rels r1 where r1.id=t1.id
+ ) ) -- /selct /file
+FROM (
+ SELECT *, stable.getcity_rels_id(name_path) id  from stable.city_test_names
+) t1, LATERAL (
+ SELECT * FROM planet_osm_rels r WHERE  r.id=t1.id
+) t2;
+
+---- testes ------------------------
+  SELECT
+    trim(((
+       jsonb_strip_nulls(stable.rel_properties(r1.id)
+       || COALESCE(stable.rel_dup_properties(r1.id,'r',r1.members_md5_int,r1.members),'{}'::jsonb) )
+    ) -'flag' -'name:' #-'{"members","n_md5"}' #-'{"members","w_md5"}' #-'{"members","n_size"}' #-'{"members","w_size"}' )::text)
+  FROM  planet_osm_rels r1 where r1.id IN (297514,297687, 296625, 298450, 315008,298285,185554, 2217370  );
+  -- =297514;
+
+  SELECT t1.name_path, t1.id
+  FROM (
+   SELECT *, stable.getcity_rels_id(name_path) id  from stable.city_test_names
+  ) t1, LATERAL (
+   SELECT * FROM planet_osm_rels r WHERE  r.id=t1.id
+  ) t2;
+
+-----------
+
+SELECT
+  trim(((
+     jsonb_strip_nulls(stable.rel_properties(r1.id)
+     --|| COALESCE(stable.rel_dup_properties(r1.id,'r',r1.members_md5_int,r1.members),'{}'::jsonb) )
+  )) -'flag' -'name:' #-'{"members","n_md5"}' #-'{"members","w_md5"}' #-'{"members","n_size"}' #-'{"members","w_size"}' )::text)
+FROM  planet_osm_rels r1 where r1.id IN (297514,297687, 296625, 298450, 315008,298285,185554, 2217370  );
+-- =297514;
+
+stable.getcity_polygon_geom
+
+-- ERROR:  stack depth limit exceeded
+-- HINT:  Increase the configuration parameter "max_stack_depth" (currently 2048kB), after ensuring the platform's stack depth limit is adequate.
+-- CONTEXT:  SQL function "rel_dup_properties" during startup
+SELECT r1.id, stable.rel_properties(r1.id)  -'flag' -'name:' #-'{"members","n_md5"}' #-'{"members","w_md5"}' #-'{"members","n_size"}' #-'{"members","w_size"}'
+FROM  planet_osm_rels r1 where r1.id IN (298450  );
+
+-- */
+
+
+-------------
+SELECT t1.name_path, t1.id,
+ file_put_contents('/tmp/final-'||t1.id||'.json', (
+  SELECT
+    trim(jsonb_pretty((
+       jsonb_strip_nulls(stable.rel_properties(r1.id)
+       || COALESCE(stable.rel_dup_properties(r1.id,'r',r1.members_md5_int,r1.members),'{}'::jsonb) )
+    ) -'flag' -'name:' #-'{"members","n_md5"}' #-'{"members","w_md5"}' #-'{"members","n_size"}' #-'{"members","w_size"}' )::text)
+    --trim((
+    --   jsonb_strip_nulls(stable.rel_properties(r1.id)
+    --   || COALESCE(stable.rel_dup_properties(r1.id,'r',r1.members_md5_int,r1.members),'{}'::jsonb) )
+    --)::text)
   FROM  planet_osm_rels r1 where r1.id=t1.id
  ) ) -- /selct /file
 FROM (
@@ -170,13 +232,12 @@ FROM (
 ) t2;
 
 
-*/
 
 CREATE or replace FUNCTION stable.rel_properties(
   p_osm_id bigint
 ) RETURNS JSONb AS $f$
   SELECT tags || jsonb_build_object('members',members)
-  || COALESCE(stable.rel_dup_properties(id,'r',members_md5_int,members),'{}'::jsonb)
+  -- bug  || COALESCE(stable.rel_dup_properties(id,'r',members_md5_int,members),'{}'::jsonb)
   FROM planet_osm_rels
   WHERE id = abs(p_osm_id)
 $f$ LANGUAGE SQL IMMUTABLE;
@@ -205,36 +266,6 @@ CREATE or replace FUNCTION stable.element_properties(
     END
 $wrap$ LANGUAGE SQL IMMUTABLE;
 
-/**
- * Enhances ST_AsGeoJSON() PostGIS function.
- * Use ST_AsGeoJSONb( geom, 6, 1, osm_id::text, stable.element_properties(osm_id) - 'name:' ).
- */
-CREATE or replace FUNCTION ST_AsGeoJSONb( -- ST_AsGeoJSON_complete
-  -- st_asgeojsonb(geometry, integer, integer, bigint, jsonb
-  p_geom geometry,
-  p_decimals int default 6,
-  p_options int default 1,  -- 1=better (implicit WGS84) tham 5 (explicit)
-  p_id text default null,
-  p_properties jsonb default null,
-  p_name text default null,
-  p_title text default null,
-  p_id_as_int boolean default false
-) RETURNS JSONb AS $f$
-  -- Do ST_AsGeoJSON() adding id, crs, properties, name and title
-  SELECT ST_AsGeoJSON(p_geom,p_decimals,p_options)::jsonb
-         || CASE
-            WHEN p_properties IS NULL OR jsonb_typeof(p_properties)!='object' THEN '{}'::jsonb
-            ELSE jsonb_build_object('properties',p_properties)
-            END
-         || CASE
-            WHEN p_id IS NULL THEN '{}'::jsonb
-            WHEN p_id_as_int THEN jsonb_build_object('id',p_id::bigint)
-            ELSE jsonb_build_object('id',p_id)
-            END
-         || CASE WHEN p_name IS NULL THEN '{}'::jsonb ELSE jsonb_build_object('name',p_name) END
-         || CASE WHEN p_title IS NULL THEN '{}'::jsonb ELSE jsonb_build_object('title',p_title) END
-$f$ LANGUAGE SQL IMMUTABLE;
-
 /*
 -- readfile, see http://shuber.io/reading-from-the-filesystem-with-postgres/
 -- key can be pg_read_file() but no permission
@@ -251,96 +282,27 @@ AS $$
 $$ LANGUAGE plpythonu;
 */
 
-CREATE or replace FUNCTION file_get_contents(p_file text) RETURNS text AS $$
-   with open(args[0],"r") as content_file:
-       content = content_file.read()
-   return content
-$$ LANGUAGE PLpythonU;
+----------
 
-CREATE or replace FUNCTION file_put_contents(
-  p_file text,
-  p_content text,
-  p_msg text DEFAULT ' (file "%s" saved!) '
-) RETURNS text AS $$
-  o=open(args[0],"w")
-  o.write(args[1])
-  o.close()
-  if args[2] and args[2].find('%s')>0 :
-    return (args[2] % args[0])
-  else:
-    return args[2]
-$$ LANGUAGE PLpythonU;
-
-CREATE or replace FUNCTION ST_GeomFromGeoJSON_sanitized( p_j  JSONb, p_srid int DEFAULT 4326) RETURNS geometry AS $f$
-  -- do ST_GeomFromGeoJSON()  with correct SRID.  OLD geojson_sanitize().
-  -- as https://gis.stackexchange.com/a/60945/7505
-  SELECT g FROM (
-   SELECT  ST_GeomFromGeoJSON(g::text)
-   FROM (
-   SELECT CASE
-    WHEN p_j IS NULL OR p_j='{}'::JSONb OR jsonb_typeof(p_j)!='object'
-        OR NOT(p_j?'type')
-        OR  (NOT(p_j?'crs') AND (p_srid<1 OR p_srid>998999) )
-        OR p_j->>'type' NOT IN ('Feature', 'FeatureCollection', 'Position', 'Point', 'MultiPoint',
-         'LineString', 'MultiLineString', 'Polygon', 'MultiPolygon', 'GeometryCollection')
-        THEN NULL
-    WHEN NOT(p_j?'crs')  OR 'EPSG0'=p_j->'crs'->'properties'->>'name'
-        THEN p_j || ('{"crs":{"type":"name","properties":{"name":"EPSG:'|| p_srid::text ||'"}}}')::jsonb
-    ELSE p_j
-    END
-   ) t2(g)
-   WHERE g IS NOT NULL
-  ) t(g)
-  WHERE ST_IsValid(g)
-$f$ LANGUAGE SQL IMMUTABLE;
-
-CREATE OR REPLACE FUNCTION read_geojson(
-  p_path text,
-  p_ext text DEFAULT '.geojson',
-  p_basepath text DEFAULT '/opt/gits/city-codes/data/dump_osm/'::text,
-  p_srid int DEFAULT 4326
-) RETURNS geometry AS $f$
-  SELECT CASE WHEN length(s)<30 THEN NULL ELSE ST_GeomFromGeoJSON_sanitized(s::jsonb) END
-  FROM  ( SELECT file_get_contents(p_basepath||p_path||p_ext) ) t(s)
-$f$ LANGUAGE SQL IMMUTABLE;
-
--- --
-
-CREATE or replace FUNCTION stable.id_ibge2uf(p_id text) REtURNS text AS $$
-  -- A rigor deveria ser construida pelo dataset brcodes... Gambi.
-  -- Using official codes of 2018, lookup-table, from IBGE code to UF abbreviation.
-  -- for general city-codes use stable.id_ibge2uf(substr(id,1,2))
-  SELECT ('{
-    "12":"AC", "27":"AL", "13":"AM", "16":"AP", "29":"BA", "23":"CE",
-    "53":"DF", "32":"ES", "52":"GO", "21":"MA", "31":"MG", "50":"MS",
-    "51":"MT", "15":"PA", "25":"PB", "26":"PE", "22":"PI", "41":"PR",
-    "33":"RJ", "24":"RN", "11":"RO", "14":"RR", "43":"RS", "42":"SC",
-    "28":"SE", "35":"SP", "17":"TO"
-  }'::jsonb)->>$1
-$$ language SQL immutable;
-
--- -- -- -- -- --
--- CEP funcions. To normalize and convert postalCode_ranges to integer-ranges:
-
-CREATE or replace FUNCTION stable.csvranges_to_int4ranges(
-  p_range text
-) RETURNS int4range[] AS $f$
-   SELECT ('{'||
-      regexp_replace( translate(regexp_replace($1,'\][;, ]+\[','],[','g'),' -',',') , '\[(\d+),(\d+)\]', '"[\1,\2]"', 'g')
-   || '}')::int4range[];
-$f$ LANGUAGE SQL IMMUTABLE;
-
-CREATE or replace FUNCTION stable.int4ranges_to_csvranges(
-  p_range int4range[]
-) RETURNS text AS $f$
-   SELECT translate($1::text,',{}"',' ');
-$f$ LANGUAGE SQL IMMUTABLE;
-
-
-CREATE or replace FUNCTION jsonb_strip_nulls_v2(
-  -- on  empty returns null
-  p_input jsonb
-) RETURNS jsonb AS $f$
-   SELECT CASE WHEN x='{}'::JSONb THEN NULL ELSE x END
-   FROM (SELECT jsonb_strip_nulls($1)) t(x)
-$f$ LANGUAGE SQL IMMUTABLE;
+CREATE or replace FUNCTION stable.save_city_polygons(
+  p_root text DEFAULT '/tmp/pg_io/data/'
+) RETURNS TABLE(city_name text, osm_id bigint, filename text)
+    LANGUAGE sql IMMUTABLE
+    AS $f$
+  SELECT t1.pathname2, t1.id,
+   file_put_contents(p_root||t1.pathname2 ||'/municipio.geojson', jsonb_pretty((
+    SELECT
+       ST_AsGeoJSONb( (SELECT ST_SimplifyPreserveTopology(way,0) FROM planet_osm_polygon WHERE osm_id=-r1.id), 6, 1, 'R'||r1.id::text,
+         (jsonb_strip_nulls(stable.rel_properties(r1.id)
+         || COALESCE(stable.rel_dup_properties(r1.id,'r',r1.members_md5_int,r1.members),'{}'::jsonb) )
+         ) -'flag' -'name:' #-'{"members","n_md5"}' #-'{"members","w_md5"}' #-'{"members","n_size"}' #-'{"members","w_size"}'
+      )
+    FROM  planet_osm_rels r1 where r1.id=t1.id
+   )) ) -- /selct /pretty /file
+  FROM (
+     SELECT *, stable.getcity_rels_id(ibge_id) id, stable.std_name2unix(name,uf)  pathname2
+     FROM  brcodes_city  WHERE ibge_id!=53
+  ) t1, LATERAL (
+     SELECT * FROM planet_osm_rels r WHERE  r.id=t1.id
+  ) t2;
+$f$;
