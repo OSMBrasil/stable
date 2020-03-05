@@ -10,6 +10,8 @@ A seguir o histórico e metadados das versões utilizadas, organizadas por data 
 ## 2018-10-02
 Obtido de http://download.geofabrik.de/south-america/brazil-latest.osm.pbf com [_resumo-hash_ MD5](https://en.wikipedia.org/wiki/MD5) confirmada, e os seguites metadados e confirmações no [arquivo PBF](https://wiki.openstreetmap.org/wiki/PBF_Format) de *617 MiB*, auditados por [@ppKrauss](data/data_auditor.csv):
 
+* Evidência de licenceamento e licença: da mesma data na `web.archive.org`, [evidência em openstreetmap.org/copyright](http://web.archive.org/web/20181001012351/https://www.openstreetmap.org/copyright) e [texto da licença em opendatacommons.org/licenses/odbl](http://web.archive.org/web/20181002092250/https://opendatacommons.org/licenses/odbl/). Portanto **ODbL**.
+
 * [_Resumo-hash_ SHA256d](https://en.bitcoin.it/wiki/Protocol_documentation#Hashes): <small><code>477b9c42709f3fd7f5e44dcb38752c1d4f4ef132b2cf39fa1015a742934b42db</code></small>.
 
 * Contagens no [PostgreSQL](https://en.wikipedia.org/wiki/PostgreSQL) após [Osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql): 89942954 _nodes_; 8335298 _ways_; 151288 _relations_.
@@ -53,6 +55,8 @@ Data:
 
 ## 2020-01-05
 Obtido de http://download.geofabrik.de/south-america/brazil-latest.osm.pbf com [_resumo-hash_ MD5](https://en.wikipedia.org/wiki/MD5) confirmada, e os seguites metadados e confirmações no [arquivo PBF](https://wiki.openstreetmap.org/wiki/PBF_Format) de *846 MiB*, auditados por [@ppKrauss](data/data_auditor.csv):
+
+* Evidência de licenceamento e licença: da mesma data na `web.archive.org`, [evidência em `openstreetmap.org/copyright`](http://web.archive.org/web/20200105225825/https://www.openstreetmap.org/copyright) e [texto da licença em `opendatacommons.org/licenses/odbl`](http://web.archive.org/web/20200106031924/https://opendatacommons.org/licenses/odbl/). Portanto **ODbL**.
 
 * [_Resumo-hash_ SHA256d](https://en.bitcoin.it/wiki/Protocol_documentation#Hashes): <small><code>9e424e489380cf77425e110a4bfc6a6dba115469a361a59c1d9ad4ac0f92896d</code></small>.
 
