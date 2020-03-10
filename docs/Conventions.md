@@ -10,7 +10,7 @@ O **Projeto OSM-Stable-BR** demanda a utilização de infraestrutura [PostgreSQL
 [PostGIS](https://en.wikipedia.org/wiki/PostGIS) e [PostgREST](http://postgrest.org/en/v6.0/),
 onde poderá, eventualmente, conviver com outros projetos OSM-Stable (no _namespace_ adota-se o prefixo `osms` antes da sigla do país).
 
-Não existem padrões muito rigoros no OSM, e diversas convenções, principalmente no que se refere às tags,
+Não existem padrões muito rigoros no OSM, e diversas convenções, principalmente no que se refere às _tags_,
 podem variar de país para país. As ferramentas, tais como _OSMose_ e _Osm2pgsql_ são muito flexíveis tornando sua configuração complexa.
 Além disso algumas delas são conservadoras, não permitindo a adoção de tecnologias "modernas".
 A _Osm2pgsql_ por exemplo [se recusa a dar a opção JSONb](https://github.com/openstreetmap/osm2pgsql/issues/672).
@@ -23,11 +23,11 @@ Foram adotados os formatos [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) para
 e [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) para dados cadastrais,
 com representação de ponto [Geohash](https://en.wikipedia.org/wiki/Geohash).
 
-## Referência estável 
+## Referência estável
 
 Os metadados da "cópia OSM Planet" ficam registrados no documento da raiz do repositório,
-[`brazil-latest.osm.md`](https://github.com/OSMBrasil/stable/blob/master/brazil-latest.osm.md). Softwares de *parsing*  e  *templating* garantem 
-a sua expressão consistente em JSON. 
+[`brazil-latest.osm.md`](https://github.com/OSMBrasil/stable/blob/master/brazil-latest.osm.md). Softwares de *parsing*  e  *templating* garantem
+a sua expressão consistente em JSON.
 
 ## Nomes de banco de dados
 
@@ -35,7 +35,7 @@ Convenções para nomes e papeis nos bancos de dados.
 O **Projeto OSM-Stable-BR** demanda a utilização de infraestrutura [PostgreSQL](https://en.wikipedia.org/wiki/PostgreSQL),
 [PostGIS](https://en.wikipedia.org/wiki/PostGIS) e [PostgREST](http://postgrest.org/en/v6.0/),
 onde poderá, eventualmente, conviver com outros projetos OSM-Stable (no _namespace_ adota-se o prefixo `osms`).
-Além disso, do ponto de vista metodológico, é requerido certo grau de encapsulamento. 
+Além disso, do ponto de vista metodológico, é requerido certo grau de encapsulamento.
 
 Tendo isso em vista, os nomes de bases (utilizados em `CREATE DATABASE nome_de_uma_base`) precisam ser controlados, respeitando-se as seguintes regras, finalidades e justificativas:
 
@@ -45,7 +45,65 @@ Banco | Descrição | Justificativas
 **`osms1_testing`**|Repositório rigorosamente organizado, nele entram apenas dados do _git branch_ de teste. Fase *testing*, para estabilização ("quarentena") e validação humana.|Encapsulamento, faz papel "testing distribution", ou seja, permite que auditores avaliem os dados novos a tempo de fazer correções. Quando quando houver mais de um país, fará também papel de [Data Warehouse](https://en.wikipedia.org/wiki/Data_warehouse). <br/>O código "1" auxilia na manutenção e, quando preservado, na semântica de códigos (ex. porta PostgREST `3101`).
 **`osms2_stable`**|Idem base `osm2_testing`, porém correspondendo à **fase de produção**. Todos os dados foram homologados, aceitos como "estáveis e qualificados".|Requer isolamento, faz papel de entrega final para o uso em produção. <br/>O código "2" auxilia na manutenção e, quando preservado, na semântica de códigos (ex. porta PostgREST `3102`).
 
-## Formatos CSV e GeoJSON 
+### Nomes de schemas e tabelas
+Na base `osms0_lake` são criados
+Schemas presentes em ambas bases, *osms1_testing* e *osms2_stable*:
+
+* _public_: objetos publicados na API do PostgREST. <br/>Não se trata portanto um "_namespace_ de trabalho" como nas bases de dados PostgreSQL usuais, mas de um _namespace_ crítico por afetar o usuário final e as convenções de acesso na API.
+<!-- * _osm_: tabelas "as is" do OSM, conforme importadas da base `osms0_lake` após [processo de instalação](HowTo/install.md), com origem no `osm2pgsql` de um arquivo `brazil-latest.osm`.-->
+* _lib_: funções de biblioteca de uso geral, mas que não se deve misturar ao public.
+* _working_: temporária ou para tarefas específicas.
+* _datasets_: tabelas menores com _datasets_ relevantes, tais como [datasets.ok.org.br/city-codes](http://datasets.ok.org.br/city-codes).
+* _stable_: todas as tabelas e funções dependentes de tabelas do Projeto OSM-Stable.
+
+Tabelas principais do schema *public*:
+* ... ver convenções de publicação final. Datasets menores podem ser publicados diretamente em public
+
+Tabelas principais do schema *datasets*:
+* ...
+
+Tabelas principais do schema *stable*:
+* ...
+
+Tabelas do schema *osm*: geometrias do OSM, podem também vir com o prefixo  "planet_osm_".
+* `osm.br_point`: todos os pontos definidos no OSM, de endereçamento ou não.
+* `osm.br_line`: linhas de hidrografia, vias secundárias, trilhas, etc.
+* `osm.br_polygon`: polígonos de jurisdições (municípios e estados), bacias hidrográficas e outros.
+* `osm.br_roads`: ruas, rodovias, ferrovias, etc.
+
+Prefixos nos nomes, esquemas *public* e *stable*:
+* `mvw_*`: prefixo de MATERIALIZED VIEW
+* `vwDDdesc_*`: prefixo de VIEW, com DD dois dígitos e desc um menemônico descritivo, antes do nome de tabela ou de relacionamento.
+
+### Nomes e API no schema public
+Os _datasets_ expostos através do *schema public* são tabelas e views de menor volume. Dados GeoJSON e acesso a tabelas maiores deve ser realializado através de funções, que na API PostgREST respondem pelo _namespace_ `rpc`.
+
+As APIS estão atualmente configuradas nos seguintes _endpoints_:
+*  `api.addressforall.org/osms1`: API PostgREST da base  *osms1_testing*. Tabelas do schema public podem ser recuperadas em formato JSON como `/osms1/{nomeTabela}` ou  `/osms1.json/{nomeTabela}`; ou recuperadas em formato CSV por  `/osms1.csv/{nomeTabela}`.
+*  `api.addressforall.org/osms2`: API PostgREST da base  *osms2_stable*. Item API `/osms1`.
+*  `api.addressforall.org/osms`: _endpoint_ descritor da API da base  *osms2_stable* para funções mais requisitadas. Por exemplo `/osms.json/br/SP/Campinas` retorna todos os metadados de Campinas, enquanto `/osms.geojson/br/SP/Campinas` o seu mapa. <!-- `/osms.json/br/SP/Campinas/ghs-123` retorna metadados de todos os pontos de interseção entre o Geohash 123 e o polígono de Campinas. -->
+
+## Jurisdições e nomenclatura
+Diferentes áreas do mundo pertencem a diferentes países, e o mapeamento OSM sobre uma determinada área é realizado principalmente pela comunidade daquele país. As convenções toponímicas, a língua e as leis de demarcação do território são fixadas pelo pais que detém a jurisdição sobre aquele território, ou as jurisdições tais como estados e municípios, determinadas pela normas do país.
+
+No OSM as jurisdições são marcadas pela *tag* [`boundary=administrative`](https://wiki.openstreetmap.org/wiki/Tag:boundary%3Dadministrative), e seu nível hierárquico pela [*key* `admin_level`](https://wiki.openstreetmap.org/wiki/Pt:Tag:boundary%3Dadministrative#admin_level). Apesar do nome de cada unidade administrativa ser fixado adequadamente pela *key* `name` ou `official_name`, não há uma convenção para uma versão simplificada do nome, mais útil para a referência em URLs e nomes de arquivo.
+
+No projeto OSM-Stable estão sendo adotadas as convenções de transcrição ortográfica da norma [URN LEX](https://tools.ietf.org/html/draft-spinosa-urn-lex-13#section-7). Além disso a adoção de qualquer outra convenção, no escopo do projeto, prioriza as normas de autoridades da jurisdição. <!-- As normas podem ser citdas conforme sua URN LEX.-->
+
+No Brasil a URN LEX foi officialmente adotada a partir de 2008, quando entrou em vigor o  [padrão LexML do Brasil](https://projeto.lexml.gov.br/documentacao/Parte-2-LexML-URN.pdf).  Nomes de jurisdição são representados sem acento, hifens e apóstrofes ou preposições. Nomes como Machadinho D'Oeste (RO) e  Pingo-d'Água (MG) ficam normalizados para "br;ro;machadinho.oeste" e "br;mg;pingo.agua" respectivamente. Na convenção OSM-Stable esses nomes são mapeados de forma reversível para CamelCase e siglas em maiúsculas, em path Unix: "BR/RO/MachadinhoOeste" e "BR/MG/PingoAgua". A função responsável por esta conversão de nomes próprios é a stable.std_name2unix(). Exemplos:
+
+uf |               name               | ibge_id |             path
+---|----------------------------------|---------|-------------------------------
+AM | Boca do Acre                     | 1300706 | AM/BocaAcre
+AC | Brasiléia                        | 1200104 | AC/Brasileia
+RO | Alta Floresta D'Oeste            | 1100015 | RO/AltaFlorestaOeste
+RO | Colorado do Oeste                | 1100064 | RO/ColoradoOeste
+RO | Espigão D'Oeste                  | 1100098 | RO/EspigaoOeste
+RO | Guajará-Mirim                    | 1100106 | RO/GuajaraMirim
+RO | Ji-Paraná                        | 1100122 | RO/JiParana
+RO | Alto Alegre dos Parecis          | 1100379 | RO/AltoAlegreParecis
+
+## Formatos CSV e GeoJSON
 
 A ideia do repositório *git* do Projeto OSM-Stable é ser um pouco também de uma **interface para auditoria e visualização dos dados**, principalmente para leigos (não-nerds). E essa auditoria (ou visualização) precisa ser praticável por humanos ("[_human readable_](https://en.wikipedia.org/wiki/Human-readable_medium)")  tanto via Web como via editores e visualizadores de "texto bruto",  o assim-chamado **TXT** (padrão [*plain text*](https://en.wikipedia.org/wiki/Plain_text) com caracters [UTF-8](https://en.wikipedia.org/wiki/UTF-8)).
 
@@ -73,7 +131,7 @@ Neste sentido cede-se a **demandas mais específicas da infraestrutura** *TXT* e
 
 3. Para respeitar "o grande público", que não vai sequer usar [git GUI desktop](https://git.wiki.kernel.org/index.php/InterfacesFrontendsAndTools#Web_Interfaces) é preciso confiar o repositório a uma boa *"git Web-based Use Interface"* ([git WUI](https://git.wiki.kernel.org/index.php/InterfacesFrontendsAndTools#Web_Interfaces)), que atualmente é a [interface Web Github](https://help.github.com/en/github). **Convenções** adotadas para garantir consistência com a *git WUI*:
 
-    3.1. No JSON de *properties* GeoJSON, **priorizar as chave-valores de primeiro nível**. Justificativa: na visualização do GeoJSON do Github apenas atributos de primeiro nível são visíveis ao se clicar num polígono. 
+    3.1. No JSON de *properties* GeoJSON, **priorizar as chave-valores de primeiro nível**. Justificativa: na visualização do GeoJSON do Github apenas atributos de primeiro nível são visíveis ao se clicar num polígono.
 
     3.2. ...
 
@@ -83,7 +141,7 @@ Inicialmente, devido à demanda para prefeituras e aplicações de roteamento, a
 * polígonos de delimitações administrativa (cidades e bairros oficiais)
 * linhas de logradouros
 * pontos de endereçamento (entrada principa do lote ou portão de entidade registrada na Wikidata - parques, hospitais, etc.).
- 
+
 Exemplo em planilha amigável com [alguns descritores de ponto de Curitiba](https://docs.google.com/spreadsheets/d/1yKC7ZwS8kU_aHQ1raOau1x3TkmmE074G0Wu7z8XnwzQ/edit#gid=1454207711)
 
 ## Elementos do GeoJSON de município
@@ -112,7 +170,7 @@ Chave     | Significado ou valor esperado
 **`IBGE:GEOCODIGO`** | [osm&#8203;:&#8203;key&#8203;:&#8203;IBGE:GEOCODIGO](https://wiki.openstreetmap.org/wiki/Pt:Key:IBGE:GEOCODIGO) contendo o número do município no padrão IBGE.
 **`members`** | objeto JSON definindo, através de arrays, os *identificadores OSM* dos componentes (*map features* Node, Way ou Relation) que se juntaram para formar a geometria.
 
-Exemplo de `members`: 
+Exemplo de `members`:
 ```json
         "members": {
             "n": {
@@ -135,7 +193,7 @@ Exemplo de `members`:
         }
 ```
 
-Na representação interna do banco de dados pode ainda conter, como *cache* para otimizar velocidade na auditoria, 
+Na representação interna do banco de dados pode ainda conter, como *cache* para otimizar velocidade na auditoria,
 as chaves `n_md5` e `w_md5` para controle de casos duplicados.
 
 Ver [exemplo completo de Santa Cruz de Minas](https://raw.githubusercontent.com/OSMBrasil/stable/master/data/MG/SantaCruzMinas/municipio.geojson).
@@ -144,4 +202,3 @@ visualização dos atributos, através por exemplo de clique sobre o polígono,
 e minimamente os atributos do primeiro nivel da árvore JSON.
 
 ![](https://raw.githubusercontent.com/OSMBrasil/stable/master/assets/geojson-municipio-view.png)
-
