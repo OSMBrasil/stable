@@ -1,5 +1,21 @@
 {
     "type": "MultiLineString",
+    "properties": {
+        "name": "BR-455",
+        "comprimento_km": 58,
+        "members_osm_id": [
+            419133022,
+            419119700,
+            419119698,
+            227522484,
+            31572683,
+            230246262,
+            419119697,
+            419119699,
+            31569849
+        ],
+        "members_lexname": null
+    },
     "coordinates": [
         [
             [

@@ -1,5 +1,23 @@
 {
     "type": "MultiLineString",
+    "properties": {
+        "name": "BR-421",
+        "comprimento_km": 150,
+        "members_osm_id": [
+            31525508,
+            31525521,
+            46900046,
+            31525536,
+            141350505,
+            238494564,
+            365159032,
+            238494565,
+            365159033,
+            299951952,
+            31525513
+        ],
+        "members_lexname": null
+    },
     "coordinates": [
         [
             [

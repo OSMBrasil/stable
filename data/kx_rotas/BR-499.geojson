@@ -1,5 +1,24 @@
 {
     "type": "MultiLineString",
+    "properties": {
+        "name": "BR-499",
+        "comprimento_km": 19,
+        "members_osm_id": [
+            356626408,
+            490691798,
+            384666516,
+            169638774,
+            552401319,
+            356630086,
+            490691799,
+            552401333,
+            384666515,
+            169638772,
+            552401323,
+            490691800
+        ],
+        "members_lexname": null
+    },
     "coordinates": [
         [
             [

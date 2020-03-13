@@ -1,5 +1,22 @@
 {
     "type": "MultiLineString",
+    "properties": {
+        "name": "BR-363",
+        "comprimento_km": 7,
+        "members_osm_id": [
+            316564732,
+            316564731,
+            372466557,
+            372466552,
+            316564734,
+            316564733,
+            30687862,
+            369270643,
+            30687863,
+            369270650
+        ],
+        "members_lexname": null
+    },
     "coordinates": [
         [
             [

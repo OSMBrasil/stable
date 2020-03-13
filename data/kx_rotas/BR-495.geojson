@@ -1,5 +1,25 @@
 {
     "type": "MultiLineString",
+    "properties": {
+        "name": "BR-495",
+        "comprimento_km": 32,
+        "members_osm_id": [
+            95016321,
+            97332015,
+            95016285,
+            97332019,
+            95041132,
+            97332025,
+            95016298,
+            97332023,
+            490745204,
+            301026346
+        ],
+        "members_lexname": [
+            "estrada.teresopolis.itaipava",
+            "estrada.uniao.industria"
+        ]
+    },
     "coordinates": [
         [
             [

@@ -1,5 +1,23 @@
 {
     "type": "MultiLineString",
+    "properties": {
+        "name": "BR-435",
+        "comprimento_km": 110,
+        "members_osm_id": [
+            234963067,
+            179544812,
+            179544725,
+            300402640,
+            300402627,
+            234963069,
+            596626452,
+            596626467,
+            596626469,
+            596626470,
+            596626465
+        ],
+        "members_lexname": null
+    },
     "coordinates": [
         [
             [

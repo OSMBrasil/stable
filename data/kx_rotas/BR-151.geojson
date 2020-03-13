@@ -1,5 +1,13 @@
 {
     "type": "LineString",
+    "properties": {
+        "name": "BR-151",
+        "comprimento_km": 0,
+        "members_osm_id": [
+            266221190
+        ],
+        "members_lexname": null
+    },
     "coordinates": [
         [
             -43.841545,

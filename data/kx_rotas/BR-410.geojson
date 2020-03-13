@@ -1,5 +1,15 @@
 {
     "type": "MultiLineString",
+    "properties": {
+        "name": "BR-410",
+        "comprimento_km": 36,
+        "members_osm_id": [
+            299785417,
+            287013283,
+            202221327
+        ],
+        "members_lexname": null
+    },
     "coordinates": [
         [
             [

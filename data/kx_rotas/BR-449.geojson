@@ -1,5 +1,31 @@
 {
     "type": "MultiLineString",
+    "properties": {
+        "name": "BR-449",
+        "comprimento_km": 15,
+        "members_osm_id": [
+            241936400,
+            531152942,
+            531152937,
+            241935438,
+            531152891,
+            531152943,
+            241946320,
+            531152935,
+            531152946,
+            531152936,
+            531152938,
+            531152893,
+            531152896,
+            531152894,
+            531152895,
+            531152890,
+            446189748
+        ],
+        "members_lexname": [
+            "rodovia.professor.boanerges.nogueira"
+        ]
+    },
     "coordinates": [
         [
             [

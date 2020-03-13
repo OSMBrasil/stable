@@ -1,5 +1,19 @@
 {
     "type": "MultiLineString",
+    "properties": {
+        "name": "BR-498",
+        "comprimento_km": 14,
+        "members_osm_id": [
+            563676943,
+            563676946,
+            563676944,
+            31578814,
+            563677090,
+            563676945,
+            31655833
+        ],
+        "members_lexname": null
+    },
     "coordinates": [
         [
             [

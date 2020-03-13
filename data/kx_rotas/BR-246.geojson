@@ -1,5 +1,22 @@
 {
     "type": "MultiLineString",
+    "properties": {
+        "name": "BR-246",
+        "comprimento_km": 29,
+        "members_osm_id": [
+            615873547,
+            615873546,
+            606851574,
+            615874622,
+            615874621,
+            205353608,
+            162043374,
+            606851575,
+            206454769,
+            206454770
+        ],
+        "members_lexname": null
+    },
     "coordinates": [
         [
             [

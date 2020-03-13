@@ -1,5 +1,14 @@
 {
     "type": "MultiLineString",
+    "properties": {
+        "name": "BR-128",
+        "comprimento_km": 1,
+        "members_osm_id": [
+            174177876,
+            295758363
+        ],
+        "members_lexname": null
+    },
     "coordinates": [
         [
             [

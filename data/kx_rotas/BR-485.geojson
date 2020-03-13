@@ -1,5 +1,26 @@
 {
     "type": "MultiLineString",
+    "properties": {
+        "name": "BR-485",
+        "comprimento_km": 10,
+        "members_osm_id": [
+            30474903,
+            157623022,
+            300898379,
+            157623021,
+            170492364,
+            157623016,
+            515602162,
+            30474511,
+            300898380,
+            30474513,
+            30474512,
+            369771916
+        ],
+        "members_lexname": [
+            "rodovia.parque.nacional.agulhas.negras"
+        ]
+    },
     "coordinates": [
         [
             [
