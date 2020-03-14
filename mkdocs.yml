@@ -13,4 +13,6 @@ nav:
   - How to:
      - HowTo/cityGeoJSON.md
      - HowTo/permissions.md
-
+     - HowTo/cityGeneration.md
+     - HowTo/gitClone.md
+     - HowTo/install.md

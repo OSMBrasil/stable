@@ -127,16 +127,36 @@ CREATE UNIQUE INDEX idx2_brcodes_region ON brcodes_region(wikidata_id);
 DROP FOREIGN TABLE tmpcsv_br_region_codes CASCADE;
 
 
+--
+-- PUBLIC VIEWS after loadDatasets
+--
+
 CREATE VIEW vw_brcodes_state AS
 	SELECT s.*, r.name region_name, r.fullname region_fullname
 	FROM brcodes_state s INNER JOIN brcodes_region r
 	ON r.region=s.region
 ;
 CREATE VIEW vw_brcodes_city AS
-  SELECT c.*, s.name uf_name, s.name_prefix uf_name_prefix,
-	       s.ibge_id uf_ibge_id, s.wikidata_id uf_wikidata_id,
-				 s.lexlabel uf_lexlabel,
+  SELECT c.*, s.name uf_name,    s.name_prefix uf_name_prefix,
+	       s.ibge_id   uf_ibge_id, s.wikidata_id uf_wikidata_id,
+				 s.lexlabel  uf_lexlabel,
 	       s.region, s.region_name, s.region_fullname
 	FROM brcodes_city c INNER JOIN vw_brcodes_state s
 	  ON c.uf=s.uf
+;
+
+CREATE VIEW public.vw_brcodes_city_filepath AS
+ SELECT vw_brcodes_city.ibge_id,
+    vw_brcodes_city.uf,
+    vw_brcodes_city.lexlabel,
+    vw_brcodes_city.wikidata_id,
+    ((vw_brcodes_city.uf || '/'::text) || stable.lexname_to_path(vw_brcodes_city.lexlabel)) AS folder_name,
+    vw_brcodes_city.name
+   FROM public.vw_brcodes_city
+;
+CREATE VIEW public.vw_osm_city_polygon AS
+ SELECT p.*, c.*
+   FROM (public.vw_brcodes_city_filepath c
+   JOIN public.planet_osm_polygon p
+	 ON ((((c.ibge_id)::text = (p.tags ->> 'IBGE:GEOCODIGO')) AND (p.tags ? 'admin_level'))))
 ;

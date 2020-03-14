@@ -2,6 +2,16 @@
  * Lib of functions and basic structures.
  */
 
+ 
+
+-- pgxn check [-d DBNAME] [-h HOST] [-p PORT] [-U NAME] json_fdw
+-- pgxn check -d osm_stable_br -h localhost -U postgres json_fdw
+--  ff#12345eg
+-- faltam, via instalação por PGXN Client:
+-- leitor JSON https://pgxn.org/dist/json_fdw/
+-- leitor webservices https://pgxn.org/dist/www_fdw/
+-- leitor coomits git https://github.com/franckverrot/git_fdw
+
 CREATE EXTENSION IF NOT EXISTS PLpythonU; -- untrested Python2, ideal usar py3
 CREATE EXTENSION IF NOT EXISTS unaccent; -- for unaccent()
 CREATE EXTENSION IF NOT EXISTS fuzzyStrMatch; -- for metaphone() and levenshtein()
@@ -9,7 +19,17 @@ CREATE EXTENSION IF NOT EXISTS fuzzyStrMatch; -- for metaphone() and levenshtein
 CREATE EXTENSION IF NOT EXISTS file_fdw;
 CREATE SERVER IF NOT EXISTS files FOREIGN DATA WRAPPER file_fdw;
 
--- lib2-3 CREATE SCHEMA IF NOT EXISTS stable; -- OSM BR Stable
+
+-- -- TABLES:
+
+DROP TABLE IF EXISTS stable.member_of CASCADE;
+CREATE TABLE stable.member_of(
+  osm_owner bigint NOT NULL, -- osm_id of a relations
+  osm_type char(1) NOT NULL, -- from split
+  osm_id bigint NOT NULL, -- from split
+  member_type text,
+  UNIQUE(osm_owner, osm_type, osm_id)
+);
 
 /*  Conferir se haverá uso posterior, senão bobagem só para inicialização:
 CREATE  TABLE stable.element_exists(
