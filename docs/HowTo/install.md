@@ -3,13 +3,15 @@
 
 Tutorial passo-a-passo para a instalação do código-fonte do projeto OSM-Stable e base de dados Planet-Brasil do OSM.
 
-A seguir as instruções de como fazer carga ou manutenção do *git OSM-Stable-BR*. Para maiores detalhes sobre instalação de componentes, ver também [manuais de apoio na seção de  Referências](#Referências), e índice dos [docs](../docs/README.md).
+A seguir as instruções de como fazer carga ou manutenção do *git OSM-Stable-BR*.
+Para maiores detalhes sobre instalação de componentes, ver também [manuais de apoio na seção de  Referências](#Referências),
+e índice dos [docs](https://github.com/OSMBrasil/stable/blob/master/docs).
 Para outros elementos passo-a-passo ou exemplos,
-ver documentação de HowTo: [docs/HowTo cityGeoJSON](../docs/HowTo-cityGeoJSON.md) descreve como extrair o GeoJSON de um município.
+ver documentação de HowTo: [cityGeoJSON](cityGeoJSON.md) descreve como extrair o GeoJSON de um município.
 
 ### Preâmbulos
 A carga inicial do arquivo `brazil-latest.osm` desejado pode ser reproduzida utilizado os metadados e instruções
-de [brazil-latest.osm.md](../brazil-latest.osm.md).
+de [brazil-latest.osm.md](https://github.com/OSMBrasil/stable/blob/master/brazil-latest.osm.md).
 
 Traga o clone deste repositório para a pasta de sua preferência, aqui supondo `/tmp/gits`, e os demais arquivos (principalmente o PBF)
 para uma pasta temporária de sandbox, aqui supondo `/tmp/pg_io`.
@@ -27,7 +29,7 @@ cd stable
 ```
 
 ### Base de dados
-Supondo o uso de `ssh`  num servidor UBUNTU 18 LTS. Ao rodar o [prepare01-1.sh](prepare01-1.sh) você estará realizando aproximadamente
+Supondo o uso de `ssh`  num servidor UBUNTU 18 LTS. Ao rodar o [prepare01-1.sh](https://github.com/OSMBrasil/stable/blob/master/src/install/prepare01-1.sh) você estará realizando aproximadamente
 
 ```sh
 psql postgres://postgres:myPassword@localhost/osms0_lake  \
@@ -85,6 +87,11 @@ DROP DATABASE osm_br_stable;
 CREATE DATABASE osms2_stable WITH TEMPLATE osms1_testing;
 ```
 
+## Site de documentação 
+Usando ferramenta [mkdocs](https://www.mkdocs.org/). Na raiz do projeto rodar por exemplo a construção das paginas no `addressforall.org/osms`:
+```sh
+sudo mkdocs build -d /var/www/addressforall.org/osms
+```
 -----
 
 ## Referências
