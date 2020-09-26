@@ -38,10 +38,11 @@ psql postgres://postgres:myPassword@localhost/osms0_lake  \
 osm2pgsql -E 4326 -c -d osms0_lake -U postgres -W -H localhost --slim --drop --hstore \
    --extra-attributes --hstore-add-index --multi-geometry --number-processes 4 \
    --style /usr/local/share/osm2pgsql/empty.style \
-   /tmp/pg_io/brazil-latest.osm.pbf &
+   /tmp/pg_io/brazil-latest.osm.pbf
 ```
 
-Depois do comando `osm2pgsql`  (e fornecer a senha quando o terminal solicitar) esperar *online* no terminal, pelo menos 10 minutos...
+Depois do comando `osm2pgsql`  (e fornecer a senha quando o terminal solicitar) esperar *online* no terminal, pelo menos 10 minutos...  Por isso não pode usar `&` no final do comando: prefira realizar o processo  em `tmux` por segurança.
+
 ```
 osm2pgsql version 0.96.0 (64 bit id space)
 
